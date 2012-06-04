@@ -14,4 +14,7 @@
   <div><%= f.submit "Sign in" %></div>
 <% end %>
 
+<% users = User.all %>
+<% if users.size == 0 %>
 <%= render :partial => "devise/shared/links" %>
+<% end %>
