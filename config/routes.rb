@@ -2,7 +2,7 @@ AeroCore::Application.routes.draw do
   resources :products
   resources :welcome, :only => ['index']
 
-  devise_for :users
+  devise_for :user
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
