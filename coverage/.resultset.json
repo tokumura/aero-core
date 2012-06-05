@@ -1,6 +1,134 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/tokumura/github/aero-core/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/controllers/application_controller.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/helpers/products_helper.rb": [
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/helpers/welcome_helper.rb": [
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/models/product.rb": [
+        1,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/controllers/products_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
       "/home/tokumura/github/aero-core/app/controllers/users_controller.rb": [
         1,
         null,
@@ -26,12 +154,14 @@
         null,
         null
       ],
-      "/home/tokumura/github/aero-core/app/controllers/application_controller.rb": [
+      "/home/tokumura/github/aero-core/app/controllers/welcome_controller.rb": [
         1,
         1,
+        0,
+        null,
         null
       ]
     },
-    "timestamp": 1338875123
+    "timestamp": 1338877404
   }
 }
