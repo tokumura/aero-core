@@ -1,6 +1,14 @@
 AeroCore::Application.routes.draw do
   resources :products
   resources :welcome, :only => ['index']
+  resources :users do
+    member do
+      get :make_admin
+    end
+    member do
+      get :remove_admin
+    end
+  end
 
   devise_for :user
 
