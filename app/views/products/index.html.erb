@@ -1,4 +1,7 @@
-<h1>Welcome AERO <%=current_user.username  %></h1>
+<h1>
+  Welcome AERO <%=current_user.username %>
+  <% if current_user.try(:admin?)  %> (Admin)<% end %>
+</h1>
 <h2>商品一覧</h1>
 
 <table border="1">
