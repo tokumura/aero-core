@@ -1,0 +1,8 @@
+okumura:
+  id: 1
+  username: okumura
+  admin: t
+sekiguchi:
+  id: 2
+  username: sekiguchi
+  admin: f

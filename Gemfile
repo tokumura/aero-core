@@ -8,6 +8,17 @@ gem 'rails', '3.0.10'
 gem 'sqlite3'
 gem 'devise', '1.5.3'
 
+group :development, :test do
+  gem "rspec-rails", ">= 2.0.0"
+  gem "spork", ">= 0.9.0"
+  gem "cucumber-rails", ">= 0.3.2"
+  gem "webrat", ">= 0.7.2"
+  gem "nokogiri", ">= 1.5.2"
+  gem "database_cleaner", ">= 0.5.0"
+  gem "simplecov", :require => false
+  gem "simplecov-rcov", :require => false
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
