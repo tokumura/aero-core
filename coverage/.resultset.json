@@ -1,0 +1,37 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/tokumura/github/aero-core/app/controllers/users_controller.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/tokumura/github/aero-core/app/controllers/application_controller.rb": [
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1338875123
+  }
+}
