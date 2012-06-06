@@ -10,7 +10,7 @@ When /^ログイン画面でID、パスワードを入力してログインし�
   visit new_user_session_path
   fill_in "user_username", :with => "okumura"
   fill_in "user_password", :with => "123456"
-  click_on "Sign in"
+  click_on "ログイン"
 end
 
 Then /^ログインが成功し、商品一覧画面が表示される。$/ do
@@ -23,7 +23,7 @@ When /^ログイン画面で誤ったID、パスワードを入力してログ�
   visit new_user_session_path
   fill_in "user_username", :with => "abcdefg"
   fill_in "user_password", :with => "9999999"
-  click_on "Sign in"
+  click_on "ログイン"
 end
 
 Then /^ログインエラーとなり、エラーメッセージが表示される。$/ do
