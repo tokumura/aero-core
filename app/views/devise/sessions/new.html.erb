@@ -28,6 +28,11 @@
         <% if devise_mapping.rememberable? -%>
           　<%= f.check_box :remember_me %> 保存する
         <% end -%>
+        <% users = User.all %>
+        <% if users.size == 0 %>
+          <br/>
+          <%= render :partial => "devise/shared/links" %>
+        <% end %>
       </div>
       <div class="main-unit span8" id="sidebar" style="padding-left:50px;" align="left">
         <img src="/images/aero.jpg" width="" />
@@ -37,7 +42,3 @@
 
 <% end %>
 
-<% users = User.all %>
-<% if users.size == 0 %>
-<%= render :partial => "devise/shared/links" %>
-<% end %>
