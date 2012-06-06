@@ -1,31 +1,92 @@
-<h1>
-  Welcome AERO <%=current_user.username %>
-  <% if current_user.try(:admin?)  %> (Admin)<% end %>
-</h1>
-<h2>商品一覧</h1>
 
-<table border="1">
-  <tr>
-    <th>商品名</th>
-    <th>価格</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.price %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="<%=user_root_path%>">AERO</a>
+        <div class="btn-group pull-right">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-user"></i> <%=current_user.username%>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=destroy_user_session_path%>">ログアウト</a></li>
+          </ul>
+        </div>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="<%=user_root_path%>">商品一覧</a></li>
+          <% if current_user.try(:admin?) %>
+            <li><a href="<%=users_path%>">ユーザー管理</a></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<br />
+  <br/>
 
-<%= link_to 'New Product', new_product_path %><br/>
-<%= link_to 'User Manager', users_path %><br/>
-<%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">カテゴリ</li>
+            <li class="active"><a href="#">ORCA事業部</a></li>
+            <li><a href="#">顧客管理部</a></li>
+            <li><a href="#">フィールドサポート</a></li>
+            <li><a href="#">総務部</a></li>
+            <li><a href="#">医療機器事業部</a></li>
+            <li><a href="#">輸入機器部</a></li>
+          </ul>
+        </div><!--/.well -->
+      </div><!--/span-->
+
+      <div class="span7">
+        <div class="row-fluid">
+          <p>
+            <a class="btn btn-primary btn-large" href="#">商品登録</a>
+          </p>
+          <% if @products.size > 0 %>
+          <table class="table table-bordered table-striped">
+            <colgroup>
+              <col class="span3">
+              <col class="span2">
+              <col class="span2">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>商品名</th> 
+                <th>価格</th> 
+                <th>　</th> 
+              </tr>
+            </thead>
+            <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= product.name %></td> 
+                <td><%= product.price %></td> 
+                <td>　</td> 
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <% end %>
+        </div><!--/row-->
+      </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
+    <footer>
+      <br/>
+      <p>&copy; <%= link_to 'SAN-EI MEDSYS.CO.,LTD 2012', users_path %></p>
+    </footer>
+
+  </div><!--/.fluid-container-->
+
+  <br/>
+  <br/>
+
+<br/>
