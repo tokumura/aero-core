@@ -20,6 +20,9 @@
             <li><a href="<%=users_path%>">ユーザー管理</a></li>
           <% end %>
           </ul>
+          <form class="navbar-search" action="<%=products_path%>">
+            <input type="text" class="search-query span2" placeholder="Search">
+          </form>
         </div>
       </div>
     </div>
@@ -43,31 +46,32 @@
         </div><!--/.well -->
       </div><!--/span-->
 
-      <div class="span7">
+      <div class="span8">
         <div class="row-fluid">
           <p>
-            <a class="btn btn-primary btn-large" href="#">商品登録</a>
+            <a class="btn btn-primary btn-large" href="<%=new_product_path %>">商品登録</a>
           </p>
           <% if @products.size > 0 %>
           <table class="table table-bordered table-striped">
             <colgroup>
+              <col class="span5">
               <col class="span3">
-              <col class="span2">
-              <col class="span2">
             </colgroup>
             <thead>
               <tr>
                 <th>商品名</th> 
                 <th>価格</th> 
-                <th>　</th> 
               </tr>
             </thead>
             <tbody>
             <% @products.each do |product| %>
+              <% if current_user.try(:admin?) %>
+              <tr onclick="location.href='<%=product_path(product)%>'">
+              <% else %>
               <tr>
+              <% end %>
                 <td><%= product.name %></td> 
                 <td><%= product.price %></td> 
-                <td>　</td> 
               </tr>
             <% end %>
             </tbody>
@@ -84,9 +88,18 @@
       <p>&copy; <%= link_to 'SAN-EI MEDSYS.CO.,LTD 2012', users_path %></p>
     </footer>
 
+
   </div><!--/.fluid-container-->
 
   <br/>
   <br/>
+
+  <script type="text/javascript">
+  <!--
+    function show(url) {
+      alert(url);
+    }
+  // -->
+  </script>
 
 <br/>

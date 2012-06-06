@@ -83,4 +83,16 @@ class ProductsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def keyword_search
+    #@products = Product.find_by_name(params[:keyword])
+    @products = Product.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @products }
+    end
+  
+  end
+
+
 end

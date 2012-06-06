@@ -1,0 +1,8 @@
+printer1:
+  id: 1
+  name: LBP9100
+  price: 50000
+printer2:
+  id: 2
+  name: LBP3100
+  price: 9690

@@ -1,6 +1,10 @@
 AeroCore::Application.routes.draw do
-  resources :products
   resources :welcome, :only => ['index']
+  resources :products do
+    member do
+      get :keyword_search
+    end
+  end
   resources :users do
     member do
       get :make_admin
