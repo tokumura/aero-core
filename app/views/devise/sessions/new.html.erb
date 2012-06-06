@@ -1,17 +1,50 @@
-<h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">AERO</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">HOME</a></li>
+            <li><a href="">Products</a></li>
+            <li><a href="">Users</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div><%= f.submit "Sign in" %></div>
+  </br>
+
+  <div class="container">
+    <div class="row">
+      <div class="side-unit span3" id="sidebar" style="padding:10px;">
+        ユーザーID
+        <%= f.text_field :username %></br>
+        パスワード
+        <%= f.password_field :password %></br>
+        <input class="btn btn-primary" type="submit" value="ログイン">
+        <% if devise_mapping.rememberable? -%>
+          　<%= f.check_box :remember_me %> 保存する
+        <% end -%>
+      </div>
+      <div class="main-unit span8" id="sidebar" style="padding-left:50px;">
+        <br/>
+        <h1>AERO</h1>
+        <br/>
+        <p>三栄メディシス商品検索システム</p>
+      </div>
+    </div>
+  </div>
+
 <% end %>
 
 <% users = User.all %>
