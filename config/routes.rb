@@ -1,8 +1,8 @@
 AeroCore::Application.routes.draw do
   resources :welcome, :only => ['index']
   resources :products do
-    member do
-      get :keyword_search
+    collection do
+      get :search
     end
   end
   resources :users do

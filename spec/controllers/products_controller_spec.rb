@@ -49,13 +49,13 @@ describe ProductsController do
     end
   end
 
-=begin
-  describe "GET /keyword_search" do
+  describe "GET /search" do
     it "should be successfull" do
-      get 'keyword_search'
-      #get 'search', {:keyword => "LBP"}
+      get 'search'
+      #get 'search'
       response.should redirect_to(products_path)
     end
   end
+=begin
 =end
 end
