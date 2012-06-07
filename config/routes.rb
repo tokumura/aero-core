@@ -1,4 +1,6 @@
 AeroCore::Application.routes.draw do
+  resources :departments
+
   resources :welcome, :only => ['index']
   resources :products do
     collection do

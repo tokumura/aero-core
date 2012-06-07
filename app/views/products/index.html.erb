@@ -17,6 +17,7 @@
           <ul class="nav">
             <li class="active"><a href="<%=user_root_path%>">商品一覧</a></li>
           <% if current_user.try(:admin?) %>
+            <li><a href="<%=departments_path%>">部署管理</a></li>
             <li><a href="<%=users_path%>">ユーザー管理</a></li>
           <% end %>
           </ul>

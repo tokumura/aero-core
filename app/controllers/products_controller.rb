@@ -28,6 +28,7 @@ class ProductsController < ApplicationController
   # GET /products/new.xml
   def new
     @product = Product.new
+    @departments = Department.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,12 +39,18 @@ class ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
+    @departments = Department.all
+    puts "aaa"
+    puts @product.department_id
+    puts "bbb"
   end
 
   # POST /products
   # POST /products.xml
   def create
+    #@product = Product.new(params[:product])
     @product = Product.new(params[:product])
+    @product.department_id = params[:department_id]
 
     respond_to do |format|
       if @product.save
@@ -60,6 +67,7 @@ class ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     @product = Product.find(params[:id])
+    @product.department_id = params[:department_id]
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
