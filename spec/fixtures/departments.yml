@@ -4,4 +4,7 @@ orca:
 ikibu:
   id: 2
   name: 医療機器事業部
+fs:
+  id: 3
+  name: フィールドサポート
 

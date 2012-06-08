@@ -22,11 +22,8 @@
   <div class="field">
     <label>Department_name</label><br />
   <% @departments.each do |department| %>
-  <%   if department.id == @product.department_id %>
-    <input type="radio" checked="true" name="department_id" id="<%= department.name %>" value="<%= department.id %>"><%= department.name%></input>
-  <%   else %>
-    <input type="radio" name="department_id" id="<%= department.name %>" value="<%= department.id %>"><%= department.name%></input>
-  <%   end %>
+    <%= check_box_tag("department_param[]", department.id) %>
+      <%= department.name%>
   <% end %>
   </div>
   

@@ -40,20 +40,27 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @departments = Department.all
-    puts "aaa"
-    puts @product.department_id
-    puts "bbb"
   end
 
   # POST /products
   # POST /products.xml
   def create
-    #@product = Product.new(params[:product])
     @product = Product.new(params[:product])
-    @product.department_id = params[:department_id]
+    save_success = @product.save
+
+    if save_success
+      params[:department_param].each do |department_id|
+        @procucts_departments = ProductsDepartments.new(:product_id => @product.id, 
+                                                    :department_id => department_id)
+        save_success = @procucts_departments.save
+        if save_success == false
+          break
+        end
+      end
+    end
 
     respond_to do |format|
-      if @product.save
+      if save_success
         format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
         format.xml  { render :xml => @product, :status => :created, :location => @product }
       else
@@ -67,7 +74,6 @@ class ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     @product = Product.find(params[:id])
-    @product.department_id = params[:department_id]
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
@@ -83,6 +89,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.xml
   def destroy
+    puts "aaaaaaaaaaaaaaa"
     @product = Product.find(params[:id])
     @product.destroy
 

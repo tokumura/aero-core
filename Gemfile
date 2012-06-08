@@ -7,6 +7,7 @@ gem 'rails', '3.0.10'
 
 gem 'sqlite3'
 gem 'devise', '1.5.3'
+gem 'jquery-rails', ">= 1.0.19"
 
 group :development, :test do
   gem "rspec-rails", ">= 2.0.0"

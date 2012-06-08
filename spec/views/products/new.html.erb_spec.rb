@@ -5,6 +5,7 @@ describe "products/new.html.erb" do
   fixtures :departments, :products
   before do
     @product = Product.new
+    @departments = Department.all
   end
   it "商品名のテキストボックス(空)が表示される。" do
     render
@@ -12,13 +13,13 @@ describe "products/new.html.erb" do
       form.should have_selector("input", :type => "text", :name => "product[name]")
     end
   end
-
-  it "所属部署のラジオボタンが表示される。" do
+=begin
+  it "部署チェックボックスが表示される。" do
     render
     rendered.should have_selector("form") do |form|
-      form.should have_selector("input", :type => "radio", :name => "product[department_id]")
+      form.should have_selector("input", :type => "checkbox", :name => "department_id")
     end
-=begin
-=end
   end
+
+=end
 end

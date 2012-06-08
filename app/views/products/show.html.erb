@@ -1,15 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>商品名</b>
   <%= @product.name %>
 </p>
 
 <p>
-  <b>Price:</b>
+  <b>価格</b>
   <%= @product.price %>
 </p>
 
+<p>
+  <b>部署</b>
+</p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Destroy', @product, :method => :delete %> |
 <%= link_to 'Back', products_path %>

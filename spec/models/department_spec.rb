@@ -10,7 +10,7 @@ describe Department do
       @departments = Department.all
     end
     it "全件検索時、全部署が取得される。" do
-      @departments.size.should == 2
+      @departments.size.should == 3
     end
   end
 
