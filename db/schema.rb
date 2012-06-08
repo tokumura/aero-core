@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20120608010334) do
     t.datetime "updated_at"
   end
 
+  create_table "products_departments", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "department_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
