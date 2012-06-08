@@ -29,7 +29,7 @@
       <%=department.id%>-
       <%=d.department_id %>
       <% @checked = false %>
-      <% if department.id == d.department_id %>
+      <% if department.id.to_s == d.department_id.to_s %>
         <% @checked = true %>
         <% break %>
       <% end %>
@@ -46,7 +46,7 @@
       <%=category.id%>-
       <%=c.category_id %>
       <% @checked = false %>
-      <% if category.id == c.category_id %>
+      <% if category.id.to_s == c.category_id.to_s %>
         <% @checked = true %>
         <% break %>
       <% end %>
