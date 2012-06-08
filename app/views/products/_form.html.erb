@@ -26,17 +26,12 @@
     <label>部署</label>
   <% @departments.each do |department| %>
     <% @product.departments.each do |d| %>
-      [<%=department.id.class%>]
-      <%=department.id%>-
-      [<%=d.department_id.class %>]
-      <%=d.department_id %>
       <% @checked = false %>
       <% if department.id.to_s == d.department_id.to_s %>
         <% @checked = true %>
         <% break %>
       <% end %>
     <% end %>
-    <%=@checked%>　
     <%= check_box_tag("department_param[]", department.id, @checked) %><%= department.name%>　
   <% end %>
   </div><br/>
@@ -45,15 +40,12 @@
     <label>カテゴリ</label>
   <% @categories.each do |category| %>
     <% @product.categories.each do |c| %>
-      <%=category.id%>-
-      <%=c.category_id %>
       <% @checked = false %>
       <% if category.id.to_s == c.category_id.to_s %>
         <% @checked = true %>
         <% break %>
       <% end %>
     <% end %>
-    <%=@checked%>　
     <%=radio_button_tag :category_param, category.id, @checked %><%=category.name%>　
   <% end %>
   </div><br/>

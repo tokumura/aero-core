@@ -1,6 +1,4 @@
 
-
-
   <br/>
 
   <div class="container-fluid">
@@ -22,7 +20,11 @@
       <div class="span8">
         <div class="row-fluid">
           <p>
-            <a class="btn btn-primary btn-large" href="<%=new_product_path %>">商品登録</a>
+            <% if current_user.try(:admin?) %>
+              <a class="btn btn-primary btn-large" href="<%=new_product_path %>">商品登録</a>
+            <% else %>
+              <a class="btn btn-primary btn-large disabled" href="">商品登録</a>
+            <% end %>
           </p>
           <% if @products.size > 0 %>
           <table class="table table-bordered table-striped">
