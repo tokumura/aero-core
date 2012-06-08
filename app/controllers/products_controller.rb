@@ -45,14 +45,15 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.xml
   def create
+    puts params
     @product = Product.new(params[:product])
     save_success = @product.save
 
     if save_success
       params[:department_param].each do |department_id|
-        @procucts_departments = ProductsDepartments.new(:product_id => @product.id, 
+        @departments_products = DepartmentsProducts.new(:product_id => @product.id, 
                                                     :department_id => department_id)
-        save_success = @procucts_departments.save
+        save_success = @departments_products.save
         if save_success == false
           break
         end
@@ -89,7 +90,6 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.xml
   def destroy
-    puts "aaaaaaaaaaaaaaa"
     @product = Product.find(params[:id])
     @product.destroy
 

@@ -35,9 +35,16 @@ describe ProductsController do
     end
   end
 
+=begin
+        @procucts_departments = ProductsDepartments.new(:product_id => @product.id, 
+                                                    :department_id => department_id)
+        save_success = @procucts_departments.save
+=end
+
   describe "POST /products" do
     it "should be successfull" do
-      post 'create', {:id => 3, :name => "Canon LBP7010", :price => "10000"}
+      post 'create', :product => {:id => 3, :name => "Canon LBP7010", :price => 10000}, 
+                      :department_param => {:product_id => 3, :department_id => 1}
       response.should redirect_to(product_path(3))
     end
   end
