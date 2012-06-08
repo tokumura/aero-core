@@ -36,6 +36,7 @@
               <li class="active"><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li><a href="<%=departments_path%>">部署管理</a></li>
+                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
             <% end %>
@@ -44,6 +45,16 @@
               <li><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li class="active"><a href="<%=departments_path%>">部署管理</a></li>
+                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
+                <li><a href="<%=users_path%>">ユーザー管理</a></li>
+              <% end %>
+            <% end %>
+
+            <% if request.path_info == categories_path %>
+              <li><a href="<%=user_root_path%>">商品一覧</a></li>
+              <% if current_user.try(:admin?) %>
+                <li><a href="<%=departments_path%>">部署管理</a></li>
+                <li class="active"><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
             <% end %>
@@ -52,6 +63,7 @@
               <li><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li><a href="<%=departments_path%>">部署管理</a></li>
+                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li class="active"><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
             <% end %>

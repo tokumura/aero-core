@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @departments = Department.all
+    @categories = Category.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,15 +41,49 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @departments = Department.all
+    @categories = Category.all
   end
 
   # POST /products
   # POST /products.xml
   def create
-    @product = Product.new(params[:product])
-    save_success = @product.save
+    Product.transaction do
+      @product = Product.new(params[:product])
+      save_success = @product.save
 
-    if save_success
+      if save_success
+        params[:department_param] && params[:department_param].each do |department_id|
+          @departments_products = DepartmentsProducts.new(:product_id => @product.id, :department_id => department_id)
+          save_success = @departments_products.save
+        end
+
+        if params[:category_param] 
+          @categories_products = CategoriesProducts.new(:product_id => @product.id, :category_id => params[:category_param])
+          save_success = @categories_products.save
+        end
+      end
+
+      respond_to do |format|
+        if save_success
+          format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
+          format.xml  { render :xml => @product, :status => :created, :location => @product }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
+  end
+
+  # PUT /products/1
+  # PUT /products/1.xml
+  def update
+    Product.transaction do
+      @product = Product.find(params[:id])
+      DepartmentsProducts.delete_all(:product_id => @product.id)
+      CategoriesProducts.delete_all(:product_id => @product.id)
+
+      save_success = false
       params[:department_param] && params[:department_param].each do |department_id|
         @departments_products = DepartmentsProducts.new(:product_id => @product.id, 
                                                         :department_id => department_id)
@@ -57,34 +92,28 @@ class ProductsController < ApplicationController
           break
         end
       end
-    end
 
-    respond_to do |format|
-      if save_success
-        format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
-        format.xml  { render :xml => @product, :status => :created, :location => @product }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+      if params[:category_param] 
+        @categories_products = CategoriesProducts.new(:product_id => @product.id, :category_id => params[:category_param])
+        save_success = @categories_products.save
+      end
+
+      respond_to do |format|
+        if @product.update_attributes(params[:product]) && save_success
+          puts "success!"
+          format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          puts "failed!"
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
+=begin
+=end
 
-  # PUT /products/1
-  # PUT /products/1.xml
-  def update
-    @product = Product.find(params[:id])
-
-    respond_to do |format|
-      if @product.update_attributes(params[:product])
-        format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /products/1
   # DELETE /products/1.xml

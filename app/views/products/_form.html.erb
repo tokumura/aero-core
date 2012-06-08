@@ -14,18 +14,40 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </div>
+  </div><br/>
+
   <div class="field">
-    <%= f.label :price %><br />
+    <%= f.label :price %>
     <%= f.text_field :price %>
-  </div>
+  </div><br/>
+
   <div class="field">
-    <label>Department_name</label><br />
+    <label>部署</label>
   <% @departments.each do |department| %>
-    <%= check_box_tag("department_param[]", department.id) %>
-      <%= department.name%>
+    <% @product.departments.each do |d| %>
+      <% @checked = false %>
+      <% if department.id == d.department_id %>
+        <% @checked = true %>
+        <% break %>
+      <% end %>
+    <% end %>
+    <%= check_box_tag("department_param[]", department.id, @checked) %><%= department.name%>　
   <% end %>
-  </div>
+  </div><br/>
+
+  <div class="field">
+    <label>カテゴリ</label>
+  <% @categories.each do |category| %>
+    <% @product.categories.each do |c| %>
+      <% @checked = false %>
+      <% if category.id == c.category_id %>
+        <% @checked = true %>
+        <% break %>
+      <% end %>
+    <% end %>
+    <%=radio_button_tag :category_param, category.id, @checked %><%=category.name%>　
+  <% end %>
+  </div><br/>
   
   <div class="actions">
     <%= f.submit %>

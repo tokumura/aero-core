@@ -46,7 +46,7 @@ describe DepartmentsController do
 
   describe "PUT /departments" do
     it "should be successfull" do
-      post 'update', {:id => 2, :name => "医機部"}
+      put 'update', {:id => 2, :name => "医機部"}
       response.should redirect_to(department_path(2))
     end
   end
