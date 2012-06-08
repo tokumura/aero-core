@@ -25,6 +25,8 @@
     <label>部署</label>
   <% @departments.each do |department| %>
     <% @product.departments.each do |d| %>
+      <%=department.id%>-
+      <%=d.department_id %>
       <% @checked = false %>
       <% if department.id == d.department_id %>
         <% @checked = true %>
@@ -39,6 +41,8 @@
     <label>カテゴリ</label>
   <% @categories.each do |category| %>
     <% @product.categories.each do |c| %>
+      <%=category.id%>-
+      <%=c.category_id %>
       <% @checked = false %>
       <% if category.id == c.category_id %>
         <% @checked = true %>
