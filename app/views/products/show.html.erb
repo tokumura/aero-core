@@ -1,19 +1,36 @@
-<p id="notice"><%= notice %></p>
+<br/>
+<div class="container">
+  <h1>商品詳細</h1>
+  <br/>
+  <p id="notice"><%= notice %></p>
+  <p>
+    <b>商品名</b>　　
+    <%= @product.name %>
+  </p>
 
-<p>
-  <b>商品名</b>
-  <%= @product.name %>
-</p>
+  <p>
+    <b>価格</b>　　　
+    <%= @product.price %> 円
+  </p>
 
-<p>
-  <b>価格</b>
-  <%= @product.price %>
-</p>
+  <p>
+    <b>部署</b>
+    <% @department_name.each do |name| %>
+      <%=name%>　
+    <% end %>
+  </p>
 
-<p>
-  <b>部署</b>
-</p>
+  <p>
+    <b>カテゴリ</b>
+    <% @category_name.each do |name| %>
+      <%=name%>　
+    <% end %>
+  </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Destroy', @product, :method => :delete %> |
-<%= link_to 'Back', products_path %>
+  <%= link_to '編集', edit_product_path(@product) %> |
+  <%= link_to '削除', @product, :method => :delete %> |
+  <%= link_to 'Back', products_path %>
+</div>
+
+
+

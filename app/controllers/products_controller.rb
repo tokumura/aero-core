@@ -18,6 +18,20 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
+    @department_name = Array.new(@product.departments.size)
+    @product.departments.each do |d|
+      department = Department.find(d.id)
+      @department_name << department.name
+    end
+
+    @category_name = Array.new(@product.categories.size)
+    @product.categories.each do |c|
+      category = Category.find(c.id)
+      puts category.name
+      @category_name << category.name
+    end
+    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @product }
