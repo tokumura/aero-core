@@ -1,0 +1,10 @@
+software:
+  id: 1
+  name: ソフト
+pc:
+  id: 2
+  name: PC
+printer:
+  id: 3
+  name: プリンター
+

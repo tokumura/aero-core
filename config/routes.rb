@@ -1,4 +1,6 @@
 AeroCore::Application.routes.draw do
+  resources :categories
+
   resources :departments
 
   resources :welcome, :only => ['index']

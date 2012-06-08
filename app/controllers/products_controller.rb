@@ -45,14 +45,13 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.xml
   def create
-    puts params
     @product = Product.new(params[:product])
     save_success = @product.save
 
     if save_success
-      params[:department_param].each do |department_id|
+      params[:department_param] && params[:department_param].each do |department_id|
         @departments_products = DepartmentsProducts.new(:product_id => @product.id, 
-                                                    :department_id => department_id)
+                                                        :department_id => department_id)
         save_success = @departments_products.save
         if save_success == false
           break
