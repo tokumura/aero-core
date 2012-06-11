@@ -5,7 +5,14 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    @products = Product.all
+    @user = User.find(1)
+    @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
+    @products = Array.new(0)
+    @departments_products.each do |dp|
+      product = Product.find(dp.product_id)
+      @products << product
+    end
+    #@products = Product.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,11 +34,9 @@ class ProductsController < ApplicationController
     @category_name = Array.new(@product.categories.size)
     @product.categories.each do |c|
       category = Category.find(c.id)
-      puts category.name
       @category_name << category.name
     end
     
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @product }

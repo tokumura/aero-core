@@ -2,7 +2,14 @@ okumura:
   id: 1
   username: okumura
   admin: t
+  department_id: 1
 sekiguchi:
   id: 2
   username: sekiguchi
   admin: f
+  department_id: 1
+higashino:
+  id: 3
+  username: higashino
+  admin: t
+  department_id: 3

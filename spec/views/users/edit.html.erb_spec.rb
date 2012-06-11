@@ -6,6 +6,7 @@ describe "users/edit.html.erb" do
 
   before do
     @user = User.find(users(:okumura))
+    @departments = Department.all
   end
 
   it "ユーザー名のテキストボックス('okumura'が入力済)が表示される。" do

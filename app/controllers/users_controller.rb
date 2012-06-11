@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @departments = Department.all
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @user }
@@ -19,6 +20,8 @@ class UsersController < ApplicationController
   def create
     # todo password reinput check
     @user = User.new(params[:user])
+    @departments = Department.all
+    @user.department_id = params[:department_id].to_i
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path }
@@ -32,11 +35,14 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @departments = Department.all
   end
 
   def update
     # todo password reinput check
     @user = User.find(params[:id])
+    @departments = Department.all
+    @user.department_id = params[:department_id].to_i
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to users_path }

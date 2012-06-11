@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe ProductsController do
@@ -37,19 +38,22 @@ describe ProductsController do
 
   describe "POST /products (departments is nil)" do
     it "should be successfull" do
-      post 'create', :product => {:id => 3, :name => "Canon LBP7010", :price => 10000}, 
-                      :department_param => nil
-      response.should redirect_to(product_path(3))
+      post 'create', :product => {:id => 4, :name => "カルナート", :price => 10000}, 
+                      :department_param => nil, :category_param => nil
+      response.should redirect_to(product_path(4))
     end
   end
 
   describe "POST /products (departments is not nil)" do
     it "should be successfull" do
-      post 'create', :product => {:id => 3, :name => "Canon LBP7010", :price => 10000}, 
-                     :department_param => {:product_id => 3, :department_id => 1}
-      response.should redirect_to(product_path(3))
+      post 'create', :product => {:id => 4, :name => "カルナート", :price => 10000}, 
+                     :department_param => {:product_id => 4, :department_id => 1},
+                     :category_param => 1
+      response.should redirect_to(product_path(4))
     end
   end
+=begin
+=end
 
   describe "PUT /products" do
     it "should be successfull" do

@@ -21,6 +21,20 @@
     <%= f.password_field :password %>
   </div>
 
+  <div class="field">
+    <label>部署</label>
+    <% @departments.each do |department| %>
+      <% @checked = false %>
+      <% if @user.department %>
+        <% if department.id.to_s == @user.department.id.to_s %>
+          <% @checked = true %>
+        <% end %>
+      <% end %>
+      <%=radio_button_tag :department_id, department.id, @checked %><%=department.name%>　
+    <% end %>
+  </div><br/>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

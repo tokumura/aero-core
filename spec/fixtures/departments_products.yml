@@ -1,13 +1,9 @@
 relation1:
-  id: 1
-  department_id: 1
+  department_id: 1 #ORCA
   product_id: 1
-
 relation2:
-  id: 2
-  department_id: 2
+  department_id: 2 #医療機器
   product_id: 1
 relation1:
-  id: 3
-  department_id: 3
+  department_id: 3 #F/S
   product_id: 1

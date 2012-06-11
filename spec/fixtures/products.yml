@@ -6,3 +6,7 @@ printer2:
   id: 2
   name: LBP3100
   price: 9690
+soft1:
+  id: 3
+  name: ORCA
+  price: 1000000

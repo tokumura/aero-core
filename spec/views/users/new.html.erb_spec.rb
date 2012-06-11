@@ -4,6 +4,7 @@ require 'spec_helper'
 describe "users/new.html.erb" do
   before do
     @user = User.new
+    @departments = Department.all
   end
   it "ユーザー名のテキストボックス(空)が表示される。" do
     render
