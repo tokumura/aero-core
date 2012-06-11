@@ -6,7 +6,13 @@ AeroCore::Application.routes.draw do
   resources :welcome, :only => ['index']
   resources :products do
     collection do
-      get :search
+      post :find
+    end
+    member do
+      get :belong
+    end
+    collection do
+      get :findall
     end
   end
   resources :users do

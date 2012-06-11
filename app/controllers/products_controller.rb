@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    @user = User.find(1)
+    @user = User.find(current_user.id)
     if @user.department_id
       @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
       @products = Array.new(0)
@@ -16,7 +16,10 @@ class ProductsController < ApplicationController
     else
       @products = Product.all
     end
-    #@products = Product.all
+=begin
+    @products = Product.all
+=end
+    @departments = Department.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -150,10 +153,43 @@ class ProductsController < ApplicationController
     end
   end
 
-  def search
-    #@products = Product.find_by_name(params[:keyword])
-    @products = Product.all
-    redirect_to products_path
+  def find
+    keyword = params[:search_string]
+    @products = Product.find(:all, :conditions => ["name LIKE ?", "%" + params[:search_string] + "%"])
+    @departments = Department.all
+    respond_to do |format|
+      format.html # search.html.erb
+      format.xml  { render :xml => @products }
+    end
+=begin
+=end
   end
 
+  def belong
+    @departments_products = DepartmentsProducts.find_all_by_department_id(params[:id])
+    @products = Array.new(0)
+    @departments_products.each do |dp|
+      product = Product.find(dp.product_id)
+      @products << product
+    end
+    @departments = Department.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @products }
+    end
+  end
+
+  def findall
+    @products = Product.all
+    @departments = Department.all
+
+    respond_to do |format|
+      format.html # findall.html.erb
+      format.xml  { render :xml => @products }
+    end
+  end
+
+=begin
+=end
 end

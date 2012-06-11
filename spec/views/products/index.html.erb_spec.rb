@@ -15,6 +15,7 @@ describe "products/index.html.erb" do
       product = Product.find(dp.product_id)
       @products << product
     end
+    @departments = Department.all
   end
 
   it "初期表示時、自部署で絞り込みされている。" do

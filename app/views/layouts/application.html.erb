@@ -32,34 +32,31 @@
           <div class="nav-collapse">
             <ul class="nav">
 
-            <% if request.path_info == products_path %>
+            <% if request.path_info.index("product") != nil %>
               <li class="active"><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li><a href="<%=departments_path%>">部署管理</a></li>
                 <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
-            <% end %>
 
-            <% if request.path_info == departments_path %>
+            <% elsif request.path_info.index("department") != nil %>
               <li><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li class="active"><a href="<%=departments_path%>">部署管理</a></li>
                 <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
-            <% end %>
 
-            <% if request.path_info == categories_path %>
+            <% elsif request.path_info.index("categor") != nil %>
               <li><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li><a href="<%=departments_path%>">部署管理</a></li>
                 <li class="active"><a href="<%=categories_path%>">カテゴリ管理</a></li>
                 <li><a href="<%=users_path%>">ユーザー管理</a></li>
               <% end %>
-            <% end %>
 
-            <% if request.path_info == users_path %>
+            <% elsif request.path_info.index("user") != nil %>
               <li><a href="<%=user_root_path%>">商品一覧</a></li>
               <% if current_user.try(:admin?) %>
                 <li><a href="<%=departments_path%>">部署管理</a></li>
@@ -69,9 +66,11 @@
             <% end %>
 
             </ul>
-            <form class="navbar-search" action="<%=search_products_path%>">
-              <input type="text" class="search-query span2" placeholder="Search">
-            </form>
+            <% if request.path_info.index("product") != nil %>
+            <% form_tag "/products/find", {:class=>"navbar-search"} do %>
+            <%= text_field_tag :search_string, '', {:placeholder=>'検索',:class => "search-query span2"} %>
+            <% end %>
+            <% end %>
           </div>
         <% end %>
       </div>

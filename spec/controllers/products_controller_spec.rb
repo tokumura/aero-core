@@ -2,10 +2,13 @@
 require 'spec_helper'
 
 describe ProductsController do
-  fixtures :products
+  fixtures :products, :departments, :departments_products
 
   before do
     controller.class.skip_before_filter :authenticate_user!
+    user = double('user')
+    controller.stub(:current_user) { user }
+    user.stub(:id) { 1 }
   end
 
   describe "GET /products" do
@@ -66,11 +69,11 @@ describe ProductsController do
     end
   end
 
-  describe "GET /search" do
+  describe "GET /find" do
     it "should be successfull" do
-      get 'search'
-      #get 'search'
-      response.should redirect_to(products_path)
+      post 'find', :search_string => "LBP"
+      response.should be_success
+      #response.should redirect_to(product_path(1))
     end
   end
 =begin

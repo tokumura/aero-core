@@ -1,0 +1,71 @@
+
+  <br/>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">部署</li>
+              <li class=""><%=link_to 'すべて', findall_products_path %></li>
+            <% @departments.each do |dep| %>
+              <li class=""><%=link_to dep.name, belong_product_path(dep.id)%></li>
+            <% end %>
+          </ul>
+        </div><!--/.well -->
+      </div><!--/span-->
+
+      <div class="span8">
+        <div class="row-fluid">
+          <p>
+            <% if current_user.try(:admin?) %>
+              <a class="btn btn-primary btn-large" href="<%=new_product_path %>">商品登録</a>
+            <% else %>
+              <a class="btn btn-primary btn-large disabled" href="">商品登録</a>
+            <% end %>
+          </p>
+          <% if @products.size > 0 %>
+          <table class="table table-bordered table-striped">
+            <colgroup>
+              <col class="span5">
+              <col class="span3">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>商品名</th> 
+                <th>価格</th> 
+              </tr>
+            </thead>
+            <tbody>
+            <% puts "@products.size" %>
+            <% puts @products.size %>
+            <% @products.each do |product| %>
+              <% if current_user.try(:admin?) %>
+              <tr onclick="location.href='<%=product_path(product)%>'">
+              <% else %>
+              <tr>
+              <% end %>
+                <td><%= product.name %></td> 
+                <td><%= product.price %></td> 
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <% end %>
+        </div><!--/row-->
+      </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
+    <footer>
+      <br/>
+      <p>&copy; <%= link_to 'SAN-EI MEDSYS.CO.,LTD 2012', users_path %></p>
+    </footer>
+
+
+  </div><!--/.fluid-container-->
+
+  <br/>
+  <br/>
+
