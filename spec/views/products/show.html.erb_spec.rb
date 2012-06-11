@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "products/show.html.erb" do
-  fixtures :categories, :departments, :products, :categories_products
+  fixtures :categories, :departments, :products, :categories_products, :departments_products
   before do
     #@product = Product.find(1)
     @product = Product.find(1)
