@@ -1,0 +1,12 @@
+relation1:
+  id: 1
+  category_id: 1
+  product_id: 1
+relation2:
+  id: 2
+  category_id: 2
+  product_id: 2
+relation3:
+  id: 3
+  category_id: 3
+  product_id: 3
