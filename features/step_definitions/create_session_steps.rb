@@ -1,7 +1,10 @@
 # coding: utf-8
 
 Given /^ユーザーアカウントが一人以上存在する。$/ do
-  @user = User.new(:username => 'okumura', :password => "123456", :admin => false)
+  @department = Department.new(:id=>1, :name=>'ORCA事業部')
+  @departments_products = DepartmentsProducts.new(:department_id=>1, :product_id=>1)
+  @department.save!
+  @user = User.new(:username => 'okumura', :password => "123456", :admin => false, :department_id => 1)
   @user.save!
 end
 
