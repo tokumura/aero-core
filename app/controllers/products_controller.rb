@@ -5,19 +5,14 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    puts "aaa"
     @user = User.find(1)
-    puts "aaa"
     if @user.department_id
       @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
-      puts "aaa"
       @products = Array.new(0)
-      puts "aaa"
       @departments_products.each do |dp|
         product = Product.find(dp.product_id)
         @products << product
       end
-      puts "aaa"
     else
       @products = Product.all
     end
