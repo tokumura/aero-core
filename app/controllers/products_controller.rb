@@ -21,13 +21,10 @@ class ProductsController < ApplicationController
     end
     @departments = Department.all
 
-=begin
-=end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @products }
     end
-#    redirect_to 'http://www.google.co.jp'
   end
 
   # GET /products/1
@@ -129,20 +126,15 @@ class ProductsController < ApplicationController
 
       respond_to do |format|
         if @product.update_attributes(params[:product]) && save_success
-          puts "success!"
           format.html { redirect_to(@product, :notice => '更新しました。') }
           format.xml  { head :ok }
         else
-          puts "failed!"
           format.html { render :action => "edit" }
           format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
         end
       end
     end
   end
-=begin
-=end
-
 
   # DELETE /products/1
   # DELETE /products/1.xml
@@ -164,8 +156,6 @@ class ProductsController < ApplicationController
       format.html # search.html.erb
       format.xml  { render :xml => @products }
     end
-=begin
-=end
   end
 
   def belong
@@ -195,7 +185,4 @@ class ProductsController < ApplicationController
       format.xml  { render :xml => @products }
     end
   end
-
-=begin
-=end
 end

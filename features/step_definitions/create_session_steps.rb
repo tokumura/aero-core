@@ -1,5 +1,4 @@
 # coding: utf-8
-=begin
 Before do
   Fixtures.create_fixtures("spec/fixtures", "categories")
   Fixtures.create_fixtures("spec/fixtures", "categories_products")
@@ -7,29 +6,10 @@ Before do
   Fixtures.create_fixtures("spec/fixtures", "departments_products")
   Fixtures.create_fixtures("spec/fixtures", "products")
 end
-=end
 
 Given /^ユーザーアカウントが一人以上存在する。$/ do
-  @department = Department.new(:id=>1, :name=>'ORCA事業部')
-  @department.save!
   @user = User.new(:username => 'okumura', :password => "123456", :admin => false, :department_id => 1)
   @user.save!
-  @departments_products = DepartmentsProducts.new(:department_id=>1, :product_id=>1)
-  @departments_products.save!
-  @selected_department_id = 1
-
-    @user = User.find(1)
-    if @user.department_id
-      @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
-      @products = Array.new(0)
-      @departments_products.each do |dp|
-        product = Product.find(dp.product_id)
-        @products << product
-      end
-    else
-      @products = Product.all
-    end
-    @departments = Department.all
 end
 
 # ログイン成功シナリオ
