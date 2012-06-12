@@ -1,21 +1,28 @@
 
-  <br/>
 
-  <div class="container-fluid">
+  <div class="span12 container-fluid">
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
           <ul class="nav nav-list">
             <li class="nav-header">部署</li>
-              <li class=""><%=link_to 'すべて', findall_products_path %></li>
+              <% if @selected_department_id.to_s == "0" %>
+                <li class="active"><%=link_to 'すべて', findall_products_path %></li>
+              <% else %>
+                <li><%=link_to 'すべて', findall_products_path %></li>
+              <% end %>
             <% @departments.each do |dep| %>
-              <li class=""><%=link_to dep.name, belong_product_path(dep.id)%></li>
+              <% if @selected_department_id.to_s == dep.id.to_s %>
+                <li class="active"><%=link_to dep.name, belong_product_path(dep.id)%></li>
+              <% else %>
+                <li class=""><%=link_to dep.name, belong_product_path(dep.id)%></li>
+              <% end %>
             <% end %>
           </ul>
         </div><!--/.well -->
       </div><!--/span-->
 
-      <div class="span8">
+      <div class="span9">
         <div class="row-fluid">
           <p>
             <% if current_user.try(:admin?) %>
@@ -27,7 +34,7 @@
           <% if @products.size > 0 %>
           <table class="table table-bordered table-striped">
             <colgroup>
-              <col class="span5">
+              <col class="span6">
               <col class="span3">
             </colgroup>
             <thead>
@@ -37,8 +44,6 @@
               </tr>
             </thead>
             <tbody>
-            <% puts "@products.size" %>
-            <% puts @products.size %>
             <% @products.each do |product| %>
               <% if current_user.try(:admin?) %>
               <tr onclick="location.href='<%=product_path(product)%>'">

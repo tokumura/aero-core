@@ -1,56 +1,78 @@
-<%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<div class="row">
+  <div class="span7">
+    <%= form_for(@product, :html => {:class => 'form-horizontal well'}) do |f| %>
 
-      <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+          <ul>
+          <% @product.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
+      <fieldset>
 
-  <div class="field">
-    <label>商品名</label>
-    <%= f.text_field :name %>
-  </div><br/>
+        <div class="control-group">
+          <legend>商品情報を入力してください。</legend>
+          <label class="control-label" for="input01">商品名</label>
+          <div class="controls">
+            <%= f.text_field :name, {:class=>"input-xlarge"} %>
+          </div>
+        </div>
 
-  <div class="field">
-    <label>価格</label>
-    <%= f.text_field :price %>
-  </div><br/>
+        <div class="control-group">
+          <label class="control-label" for="input01">価格</label>
+          <div class="controls">
+            <%= f.text_field :price, {:class=>"input-xlarge"} %>
+          </div>
+        </div>
 
-  <div class="field">
-    <label>部署</label>
-  <% @departments.each do |department| %>
-    <% @product.departments.each do |d| %>
-      <% @checked = false %>
-      <% if department.id.to_s == d.department_id.to_s %>
-        <% @checked = true %>
-        <% break %>
-      <% end %>
+        <div class="control-group">
+          <label class="control-label" for="optionsCheckbox">部署</label>
+          <div class="controls">
+            <% @departments.each do |department| %>
+              <% @product.departments.each do |d| %>
+                <% @checked = false %>
+                <% if department.id.to_s == d.department_id.to_s %>
+                  <% @checked = true %>
+                  <% break %>
+                <% end %>
+              <% end %>
+              <label class="checkbox">
+                <%= check_box_tag("department_param[]", department.id, @checked) %><%= department.name%>　
+              </label>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="optionsCheckbox">カテゴリ</label>
+          <div class="controls">
+            <% @categories.each do |category| %>
+              <% @product.categories.each do |c| %>
+                <% @checked = false %>
+                <% if category.id.to_s == c.category_id.to_s %>
+                  <% @checked = true %>
+                  <% break %>
+                <% end %>
+              <% end %>
+              <label class="radio">
+                <%=radio_button_tag :category_param, category.id, @checked %><%=category.name%>　
+              </label>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit '　登　録　', {:class=>"btn btn-primary"} %>
+        </div>
+
+      </fieldset>
+
     <% end %>
-    <%= check_box_tag("department_param[]", department.id, @checked) %><%= department.name%>　
-  <% end %>
-  </div><br/>
-
-  <div class="field">
-    <label>カテゴリ</label>
-  <% @categories.each do |category| %>
-    <% @product.categories.each do |c| %>
-      <% @checked = false %>
-      <% if category.id.to_s == c.category_id.to_s %>
-        <% @checked = true %>
-        <% break %>
-      <% end %>
-    <% end %>
-    <%=radio_button_tag :category_param, category.id, @checked %><%=category.name%>　
-  <% end %>
-  </div><br/>
-  
-  <div class="actions">
-    <%= f.submit %>
   </div>
-<% end %>
+</div>

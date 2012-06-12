@@ -1,3 +1,4 @@
+# coding: utf-8
 class ProductsController < ApplicationController
 
   before_filter :authenticate_user!
@@ -13,18 +14,20 @@ class ProductsController < ApplicationController
         product = Product.find(dp.product_id)
         @products << product
       end
+      @selected_department_id = @user.department.id
     else
       @products = Product.all
+      @selected_department_id = "0"
     end
-=begin
-    @products = Product.all
-=end
     @departments = Department.all
 
+=begin
+=end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @products }
     end
+#    redirect_to 'http://www.google.co.jp'
   end
 
   # GET /products/1
@@ -32,16 +35,16 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
-    @department_name = Array.new(@product.departments.size)
+    @department_name = ""
     @product.departments.each do |d|
       department = Department.find(d.id)
-      @department_name << department.name
+      @department_name = @department_name + department.name + "　"
     end
 
-    @category_name = Array.new(@product.categories.size)
+    @category_name = ""
     @product.categories.each do |c|
       category = Category.find(c.id)
-      @category_name << category.name
+      @category_name = @category_name + category.name + "　"
     end
     
     respond_to do |format|
@@ -127,7 +130,7 @@ class ProductsController < ApplicationController
       respond_to do |format|
         if @product.update_attributes(params[:product]) && save_success
           puts "success!"
-          format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
+          format.html { redirect_to(@product, :notice => '更新しました。') }
           format.xml  { head :ok }
         else
           puts "failed!"
@@ -173,6 +176,8 @@ class ProductsController < ApplicationController
       @products << product
     end
     @departments = Department.all
+    
+    @selected_department_id = params[:id]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -183,6 +188,7 @@ class ProductsController < ApplicationController
   def findall
     @products = Product.all
     @departments = Department.all
+    @selected_department_id = "0"
 
     respond_to do |format|
       format.html # findall.html.erb

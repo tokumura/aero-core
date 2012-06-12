@@ -11,8 +11,7 @@
   <script src="/javascripts/bootstrap.min.js"></script>
 </head>
 <body>
- <p class="notice"><%=notice  %>
- <p class="alert"><%=alert  %>
+
 
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -31,51 +30,60 @@
 
           <div class="nav-collapse">
             <ul class="nav">
+              <% @product_active = "" %>
+              <% @department_active = "" %>
+              <% @category_active = "" %>
+              <% @user_active = "" %>
 
-            <% if request.path_info.index("product") != nil %>
-              <li class="active"><a href="<%=user_root_path%>">商品一覧</a></li>
-              <% if current_user.try(:admin?) %>
-                <li><a href="<%=departments_path%>">部署管理</a></li>
-                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
-                <li><a href="<%=users_path%>">ユーザー管理</a></li>
+              <% if request.path_info.index("product") != nil %>
+                <% @product_active = "active" %>
+              <% elsif request.path_info.index("department") != nil %>
+                <% @department_active = "active" %>
+              <% elsif request.path_info.index("categor") != nil %>
+                <% @category_active = "active" %>
+              <% elsif request.path_info.index("user") != nil %>
+                <% @user_active = "active" %>
               <% end %>
 
-            <% elsif request.path_info.index("department") != nil %>
-              <li><a href="<%=user_root_path%>">商品一覧</a></li>
-              <% if current_user.try(:admin?) %>
-                <li class="active"><a href="<%=departments_path%>">部署管理</a></li>
-                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
-                <li><a href="<%=users_path%>">ユーザー管理</a></li>
-              <% end %>
-
-            <% elsif request.path_info.index("categor") != nil %>
-              <li><a href="<%=user_root_path%>">商品一覧</a></li>
-              <% if current_user.try(:admin?) %>
-                <li><a href="<%=departments_path%>">部署管理</a></li>
-                <li class="active"><a href="<%=categories_path%>">カテゴリ管理</a></li>
-                <li><a href="<%=users_path%>">ユーザー管理</a></li>
-              <% end %>
-
-            <% elsif request.path_info.index("user") != nil %>
-              <li><a href="<%=user_root_path%>">商品一覧</a></li>
-              <% if current_user.try(:admin?) %>
-                <li><a href="<%=departments_path%>">部署管理</a></li>
-                <li><a href="<%=categories_path%>">カテゴリ管理</a></li>
-                <li class="active"><a href="<%=users_path%>">ユーザー管理</a></li>
-              <% end %>
-            <% end %>
-
+              <li class="<%=@product_active%>"><a href="<%=user_root_path%>">商品一覧</a></li>
+              <li class="<%=@department_active%>"><a href="<%=departments_path%>">部署管理</a></li>
+              <li class="<%=@category_active%>"><a href="<%=categories_path%>">カテゴリ管理</a></li>
+              <li class="<%=@user_active%>"><a href="<%=users_path%>">ユーザー管理</a></li>
             </ul>
+
             <% if request.path_info.index("product") != nil %>
-            <% form_tag "/products/find", {:class=>"navbar-search"} do %>
-            <%= text_field_tag :search_string, '', {:placeholder=>'検索',:class => "search-query span2"} %>
-            <% end %>
+              <% form_tag "/products/find", {:class=>"navbar-search"} do %>
+                <%= text_field_tag :search_string, '', {:placeholder=>'検索',:class => "search-query span2"} %>
+              <% end %>
             <% end %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
+   <div class="container">
+    <div class="row">
+     <div class="span12">
+       <% if notice != nil %>
+         <div class="alert alert-block">
+           <a class="close" data-dismiss="alert" href="#">&times;</a>
+           <h4 class="alert-heading"><%=notice%></h4>
+         </div>
+       <% elsif alert != nil %>
+         <div class="alert alert-error">
+           <a class="close" data-dismiss="alert" href="#">&times;</a>
+           <h4 class="alert-heading"><%=alert%></h4>
+         </div>
+       <% end %>
+     </div>
+    </div>
+   </div>
 
 <%= yield %>
 
