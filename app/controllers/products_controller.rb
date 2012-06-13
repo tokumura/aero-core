@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
       @selected_department_id = "0"
     end
     @departments = Department.all
+    @categories = Category.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -166,6 +167,7 @@ class ProductsController < ApplicationController
       @products << product
     end
     @departments = Department.all
+    @categories = Category.all
     
     @selected_department_id = params[:id]
 
@@ -179,6 +181,7 @@ class ProductsController < ApplicationController
     @products = Product.all
     @departments = Department.all
     @selected_department_id = "0"
+    @categories = Category.all
 
     respond_to do |format|
       format.html # findall.html.erb
