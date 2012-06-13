@@ -153,6 +153,8 @@ class ProductsController < ApplicationController
     keyword = params[:search_string]
     @products = Product.find(:all, :conditions => ["name LIKE ?", "%" + params[:search_string] + "%"])
     @departments = Department.all
+    @categories = Category.all
+
     respond_to do |format|
       format.html # search.html.erb
       format.xml  { render :xml => @products }

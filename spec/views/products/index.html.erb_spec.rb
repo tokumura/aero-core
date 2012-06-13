@@ -21,6 +21,8 @@ describe "products/index.html.erb" do
 
   it "初期表示時、自部署で絞り込みされている。(F/Sの場合、500Aは表示されない）" do
     render
+    rendered.should have_content("LBP9100")
+    rendered.should have_content("LBP3100")
     rendered.should_not have_content("500A")
   end
 

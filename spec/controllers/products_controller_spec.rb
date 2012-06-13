@@ -69,11 +69,25 @@ describe ProductsController do
     end
   end
 
+  describe "GET /belong" do
+    it "should be successfull" do
+      get 'belong', {:id => 1}
+      response.should be_success
+    end
+  end
+
   describe "GET /find" do
     it "should be successfull" do
       post 'find', :search_string => "LBP"
       response.should be_success
       #response.should redirect_to(product_path(1))
+    end
+  end
+
+  describe "GET /findall" do
+    it "should be successfull" do
+      get 'findall'
+      response.should be_success
     end
   end
 =begin
