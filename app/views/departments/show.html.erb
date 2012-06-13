@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @department.name %>
-</p>
+  <p>
+    <b>Name:</b>
+    <%= @department.name %>
+  </p>
 
-
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', departments_path %>
+  <%= link_to 'Edit', edit_department_path(@department) %> |
+  <%= link_to 'Back', departments_path %>
+</div>

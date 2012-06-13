@@ -1,23 +1,27 @@
-<h1>Listing departments</h1>
+<div class="container">
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <h1>Listing departments</h1>
 
-<% @departments.each do |department| %>
-  <tr>
-    <td><%= department.name %></td>
-    <td><%= link_to 'Show', department %></td>
-    <td><%= link_to 'Edit', edit_department_path(department) %></td>
-    <td><%= link_to 'Destroy', department, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<br />
+  <% @departments.each do |department| %>
+    <tr>
+      <td><%= department.name %></td>
+      <td><%= link_to 'Show', department %></td>
+      <td><%= link_to 'Edit', edit_department_path(department) %></td>
+      <td><%= link_to 'Destroy', department, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  </table>
 
-<%= link_to 'New Department', new_department_path %>
+  <br />
+
+  <%= link_to 'New Department', new_department_path %>
+
+</div>
