@@ -1,11 +1,4 @@
 # coding: utf-8
-Before do
-  Fixtures.create_fixtures("spec/fixtures", "categories")
-  Fixtures.create_fixtures("spec/fixtures", "categories_products")
-  Fixtures.create_fixtures("spec/fixtures", "departments")
-  Fixtures.create_fixtures("spec/fixtures", "departments_products")
-  Fixtures.create_fixtures("spec/fixtures", "products")
-end
 
 Given /^ユーザーアカウントが一人以上存在する。$/ do
   @user = User.new(:username => 'okumura', :password => "123456", :admin => false, :department_id => 1)

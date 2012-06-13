@@ -2,9 +2,14 @@
 require 'spec_helper'
 
 describe "products/show.html.erb" do
+
   fixtures :categories, :departments, :products, :categories_products, :departments_products
+
   before do
-    #@product = Product.find(1)
+    user = double('user')
+    controller.stub(:current_user) { user }
+    user.stub(:admin?) { true }
+
     @product = Product.find(1)
     @department_name = Array.new(@product.departments.size)
     @product.departments.each do |d|
@@ -36,6 +41,21 @@ describe "products/show.html.erb" do
   it "カテゴリが表示される。" do
     render
     rendered.should have_content("プリンター")
+  end
+
+  it "管理者ユーザーの場合、「編集」「削除」リンクが表示される。" do
+    render
+    rendered.should have_content("編集")
+    rendered.should have_content("削除")
+  end
+
+  it "管理者ユーザーの場合、「編集」「削除」リンクが表示されない。" do
+    user = double('user')
+    controller.stub(:current_user) { user }
+    user.stub(:admin?) { false }
+    render
+    rendered.should_not have_content("編集")
+    rendered.should_not have_content("削除")
   end
 =begin
 =end

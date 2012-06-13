@@ -57,3 +57,17 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+# Fixtures
+Fixtures.reset_cache
+fixtures_folder = File.join(RAILS_ROOT, 'spec', 'fixtures')
+#fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
+#Fixtures.create_fixtures(fixtures_folder, fixtures)
+
+Fixtures.create_fixtures(fixtures_folder, 'categories')
+Fixtures.create_fixtures(fixtures_folder, 'categories_products')
+Fixtures.create_fixtures(fixtures_folder, 'departments')
+Fixtures.create_fixtures(fixtures_folder, 'departments_products')
+Fixtures.create_fixtures(fixtures_folder, 'products')
+
+
+

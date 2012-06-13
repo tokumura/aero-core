@@ -16,8 +16,11 @@
     </div>
   </div>
 
-  <%= link_to '編集', edit_product_path(@product) %> |
-  <%= link_to '削除', @product, :method => :delete %> |
+  <% if current_user.try(:admin?) %>
+    <%= link_to '編集', edit_product_path(@product) %> |
+    <%= link_to '削除', @product, :method => :delete %> |
+  <% else %>
+  <% end %>
   <%= link_to 'Back', products_path %>
 </div>
 

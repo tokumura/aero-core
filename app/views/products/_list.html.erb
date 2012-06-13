@@ -59,11 +59,7 @@
                   </thead>
                   <tbody>
                   <% @products.each do |product| %>
-                    <% if current_user.try(:admin?) %>
                     <tr onclick="location.href='<%=product_path(product)%>'">
-                    <% else %>
-                    <tr>
-                    <% end %>
                       <td><%= product.name %></td> 
                       <td><%= product.price %></td> 
                     </tr>
