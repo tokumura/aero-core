@@ -10,3 +10,6 @@ relation3:
 relation4:
   department_id: 3 #F/S
   product_id: 2
+relation5:
+  department_id: 2 #医療機器
+  product_id: 3 #500A

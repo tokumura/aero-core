@@ -1,9 +1,9 @@
-elation1:
-  category_id: 3
-  product_id: 1
-elation2:
+relation1:
+  category_id: 3 #プリンター
+  product_id: 1 #LBP9100
+relation2:
   category_id: 3 #プリンター
   product_id: 2 #LBP3100
-elation3:
-  category_id: 3 #ソフト
-  product_id: 3 #ORCA
+relation3:
+  category_id: 1 #ソフト
+  product_id: 3 #500A

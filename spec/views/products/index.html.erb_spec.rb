@@ -8,7 +8,7 @@ describe "products/index.html.erb" do
     controller.stub(:current_user) { user }
     user.stub(:admin?) { true }
 
-    @user = User.find(1)
+    @user = User.find(users(:higashino).id)
     @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
     @products = Array.new(0)
     @departments_products.each do |dp|
@@ -19,9 +19,9 @@ describe "products/index.html.erb" do
     @categories = Category.all
   end
 
-  it "初期表示時、自部署で絞り込みされている。" do
+  it "初期表示時、自部署で絞り込みされている。(F/Sの場合、500Aは表示されない）" do
     render
-    rendered.should_not have_content("LBP3100")
+    rendered.should_not have_content("500A")
   end
 
 =begin

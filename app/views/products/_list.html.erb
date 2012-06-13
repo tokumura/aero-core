@@ -81,7 +81,12 @@
                 <% @categories_products = CategoriesProducts.find_all_by_category_id(category.id) %>
                 <% @categories_products.each do |cp| %>
                   <% product = Product.find(cp.product_id) %> 
-                  <% @products_by_category << product %>
+                  <% @products.each do |p| %> 
+                    <% if p.id == product.id %> 
+                      <% @products_by_category << product %>
+                      <% break %>
+                    <% end %>
+                  <% end %>
                 <% end %>
 
                 <div class="tab-pane" id="tab<%=i%>">
