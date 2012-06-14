@@ -1,4 +1,6 @@
 # coding: utf-8
+require 'thinreports'
+
 class ProductsController < ApplicationController
 
   before_filter :authenticate_user!
@@ -154,6 +156,7 @@ class ProductsController < ApplicationController
     @products = Product.find(:all, :conditions => ["name LIKE ?", "%" + params[:search_string] + "%"])
     @departments = Department.all
     @categories = Category.all
+    @search_string = params[:search_string]
 
     respond_to do |format|
       format.html # search.html.erb
@@ -189,5 +192,33 @@ class ProductsController < ApplicationController
       format.html # findall.html.erb
       format.xml  { render :xml => @products }
     end
+  end
+
+  def download
+
+    if params[:search_string] != nil
+      keyword = params[:search_string]
+      @products = Product.find(:all, :conditions => ["name LIKE ?", "%" + keyword + "%"])
+    elsif params[:selected_department_id] == "0"
+      @products = Product.all
+    else
+      departments_products = DepartmentsProducts.find_all_by_department_id(params[:selected_department_id])
+      @products = Array.new(0)
+      departments_products.each do |dp|
+        product = Product.find(dp.product_id)
+        @products << product
+      end
+    end
+
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'products_list.tlf')
+    report.start_new_page
+
+    report.page.values :tiltle => "商品一覧"
+    @products.each do |p|
+      report.page.list(:list) do |list|
+        list.add_row :product_name => p.name, :product_price => p.price
+      end
+    end
+    send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
   end
 end

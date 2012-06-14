@@ -30,8 +30,10 @@
             <% else %>
               <a class="btn btn-primary btn-large disabled" href="">商品登録</a>
             <% end %>
+            <%= link_to "一覧印刷", {:contoroller=>"product", :action=>"download", 
+                                      :selected_department_id=>@selected_department_id,
+                                      :search_string=>@search_string}, :class=>"btn btn-primary btn-large" %>
           </p>
-
 
           <div class="tabbable">
             <ul class="nav nav-tabs">
@@ -132,4 +134,5 @@
 
   <br/>
   <br/>
+
 
