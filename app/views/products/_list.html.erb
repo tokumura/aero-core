@@ -94,13 +94,15 @@
                   <% if @products_by_category.size > 0 %>
                   <table class="table table-bordered table-striped">
                     <colgroup>
-                      <col class="span6">
+                      <col class="span3">
+                      <col class="span3">
                       <col class="span3">
                     </colgroup>
                     <thead>
                       <tr>
                         <th>商品名</th> 
                         <th>価格</th> 
+                        <th>分類</th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -112,6 +114,7 @@
                       <% end %>
                         <td><%= product.name %></td> 
                         <td><%= product.price %></td> 
+                        <td><%= product.classify %></td> 
                       </tr>
                     <% end %>
                     </tbody>
