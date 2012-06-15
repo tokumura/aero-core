@@ -213,10 +213,10 @@ class ProductsController < ApplicationController
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'products_list.tlf')
     report.start_new_page
 
-    report.page.values :tiltle => "商品一覧"
+    report.page.values :title => "商品一覧"
     @products.each do |p|
-      report.page.list(:list) do |list|
-        list.add_row :product_name => p.name, :product_price => p.price
+      report.page.list(:product_list) do |list|
+        list.add_row :product_name => p.name, :product_price => p.price, :product_classify => p.classify
       end
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
