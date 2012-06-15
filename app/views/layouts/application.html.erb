@@ -35,7 +35,7 @@
               <% @category_active = "" %>
               <% @user_active = "" %>
 
-              <% if request.path_info.index("product") != nil %>
+              <% if request.path_info == products_path %>
                 <% @product_active = "active" %>
               <% elsif request.path_info.index("department") != nil %>
                 <% @department_active = "active" %>
@@ -55,7 +55,7 @@
 
             </ul>
 
-            <% if request.path_info.index("product") != nil %>
+            <% if request.path_info == products_path %>
               <% form_tag "/products/find", {:class=>"navbar-search"} do %>
                 <%= text_field_tag :search_string, '', {:placeholder=>'検索',:class => "search-query span2"} %>
               <% end %>
