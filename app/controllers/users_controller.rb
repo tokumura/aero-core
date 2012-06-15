@@ -21,7 +21,12 @@ class UsersController < ApplicationController
     # todo password reinput check
     @user = User.new(params[:user])
     @departments = Department.all
-    @user.department_id = params[:department_id].to_i
+    if params[:department_id] == nil
+      @department_id = "0"
+    else
+      @department_id = params[:department_id]
+    end
+    @user.department_id = @department_id.to_i
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path }

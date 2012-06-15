@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   # GET /products.xml
   def index
     @user = User.find(current_user.id)
-    if @user.department_id
+    if @user.department_id && @user.department_id.to_s != "0"
       @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
       @products = Array.new(0)
       @departments_products.each do |dp|

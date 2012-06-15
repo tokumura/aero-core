@@ -30,3 +30,21 @@ Then /^ログインエラーとなり、エラーメッセージが表示され�
   page.should have_content("ログインエラー")
 end
 
+Given /^ゲストアカウントが作成済み。$/ do
+  @user = User.new(:username => 'guest', :password => "guestpass", :admin => false, :department_id => 0)
+  @user.save!
+end
+
+When /^ログイン画面で'ゲストログイン'をクリックした時、$/ do
+  visit new_user_session_path
+  fill_in "user_username", :with => "guest"
+  fill_in "user_password", :with => "guestpass"
+  click_on "ゲストログイン"
+end
+
+Then /^ゲストユーザーとしてログインされる。$/ do
+  page.should have_content("商品一覧")
+  page.should_not have_content("ユーザー管理")
+  page.should have_content("guest")
+end
+

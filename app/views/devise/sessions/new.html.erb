@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  </br>
+  <br/>
 
   <div class="container">
     <div class="row">
@@ -23,6 +23,9 @@
         <% if devise_mapping.rememberable? -%>
           　<%= f.check_box :remember_me %> 保存する
         <% end -%>
+        <br/>
+        <br/>
+        <input onclick="guest_login()" class="btn btn-primary" type="submit" value="ゲストログイン">
         <% users = User.all %>
         <% if users.size == 0 %>
           <br/>
