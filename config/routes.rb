@@ -15,6 +15,9 @@ AeroCore::Application.routes.draw do
     collection do
       get :download
     end
+    member do
+      get :download_detail
+    end
   end
   resources :users do
     member do

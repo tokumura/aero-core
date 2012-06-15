@@ -17,6 +17,8 @@
       <p class="lead">　<%=@department_name%></p>
       <h3>カテゴリ</h3><br/>
       <p class="lead">　<%=@category_name%></p>
+      <%= link_to "印刷", {:contoroller=>"product", :action=>"download_detail"}, 
+                           :class=>"btn btn-primary btn-large" %>
     </div>
   </div>
 

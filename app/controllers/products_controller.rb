@@ -221,4 +221,17 @@ class ProductsController < ApplicationController
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
   end
+
+  def download_detail
+    @product = Product.find(params[:id])
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'product_detail.tlf')
+    report.start_new_page
+
+    report.page.values :product_name => @product.name,
+                       :product_price => @product.price.to_s + " 円",
+                       :product_classify => @product.classify,
+                       :product_comment => @product.comment
+ 
+    send_data report.generate, :filename => "products_detail.pdf", :type => 'application/pdf'
+  end
 end
