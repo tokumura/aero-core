@@ -1,6 +1,10 @@
 <br/>
 <div class="container">
-  <h1>商品詳細</h1>
+  <h1>
+    商品詳細　　
+    <%= link_to "印 刷", {:contoroller=>"product", :action=>"download_detail"}, 
+                         :class=>"btn btn-primary btn-large" %>
+  </h1>
   <br/>
 
   <div class="row">
@@ -17,8 +21,8 @@
       <p class="lead">　<%=@department_name%></p>
       <h3>カテゴリ</h3><br/>
       <p class="lead">　<%=@category_name%></p>
-      <%= link_to "印刷", {:contoroller=>"product", :action=>"download_detail"}, 
-                           :class=>"btn btn-primary btn-large" %>
+      <p class="lead">
+      </p>
     </div>
   </div>
 
