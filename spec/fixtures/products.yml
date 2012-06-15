@@ -2,11 +2,14 @@ printer1:
   id: 1
   name: LBP9100
   price: 50000
+  comment: コメント１
 printer2:
   id: 2
   name: LBP3100
   price: 9690
+  comment: コメント２
 soft1:
   id: 3
   name: 500A
   price: 148000
+  comment: コメント３

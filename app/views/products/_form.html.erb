@@ -32,6 +32,13 @@
         </div>
 
         <div class="control-group">
+          <label class="control-label" for="input01">コメント</label>
+          <div class="controls">
+            <%= f.text_area :comment, {:class=>"input-xlarge", :rows=>"3"} %>
+          </div>
+        </div>
+
+        <div class="control-group">
           <label class="control-label" for="optionsCheckbox">部署</label>
           <div class="controls">
             <% @departments.each do |department| %>
