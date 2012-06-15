@@ -50,11 +50,13 @@
                 <% if @products.size > 0 %>
                 <table class="table table-bordered table-striped">
                   <colgroup>
-                    <col class="span6">
+                    <col class="span3">
+                    <col class="span3">
                     <col class="span3">
                   </colgroup>
                   <thead>
                     <tr>
+                      <th>分類</th> 
                       <th>商品名</th> 
                       <th>価格</th> 
                     </tr>
@@ -62,6 +64,7 @@
                   <tbody>
                   <% @products.each do |product| %>
                     <tr onclick="location.href='<%=product_path(product)%>'">
+                      <td><%= product.classify %></td> 
                       <td><%= product.name %></td> 
                       <td><%= product.price %></td> 
                     </tr>
