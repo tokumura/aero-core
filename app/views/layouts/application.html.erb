@@ -55,7 +55,9 @@
 
             </ul>
 
-            <% if request.path_info == products_path %>
+            <% if request.path_info.index("find") != nil || %>
+            <%    request.path_info.index("belong") != nil || %>
+            <%    request.path_info == products_path %>
               <% form_tag "/products/find", {:class=>"navbar-search"} do %>
                 <%= text_field_tag :search_string, '', {:placeholder=>'検索',:class => "search-query span2"} %>
               <% end %>

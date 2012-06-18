@@ -10,15 +10,18 @@ class ProductsController < ApplicationController
   def index
     @user = User.find(current_user.id)
     if @user.department_id && @user.department_id.to_s != "0"
+      @products_temp = Product.all
       @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
       @products = Array.new(0)
+      @sql = ""
       @departments_products.each do |dp|
-        product = Product.find(dp.product_id)
-        @products << product
+        @sql = @sql + "id = " + dp.product_id.to_s + " OR "
       end
+      @sql = @sql + "id = 0 order by name asc"
+      @products = Product.find_by_sql(['SELECT * FROM products where ' + @sql])
       @selected_department_id = @user.department.id
     else
-      @products = Product.all
+      @products = Product.order('name')
       @selected_department_id = "0"
     end
     @departments = Department.all
@@ -183,7 +186,21 @@ class ProductsController < ApplicationController
   end
 
   def findall
-    @products = Product.all
+    @products = Product.order('name')
+    #@products = Product.all
+    @departments = Department.all
+    @selected_department_id = "0"
+    @categories = Category.all
+
+    respond_to do |format|
+      format.html # findall.html.erb
+      format.xml  { render :xml => @products }
+    end
+  end
+
+  def findall_desc_name
+    @products = Product.order('name DESC')
+    #@products = Product.all
     @departments = Department.all
     @selected_department_id = "0"
     @categories = Category.all

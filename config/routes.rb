@@ -13,6 +13,9 @@ AeroCore::Application.routes.draw do
       get :findall
     end
     collection do
+      get :findall_desc_name
+    end
+    collection do
       get :download
     end
     member do
