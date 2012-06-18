@@ -1332,6 +1332,7 @@ table {
 .table tbody tr:hover td,
 .table tbody tr:hover th {
   background-color: #f5f5f5;
+  cursor: pointer;
 }
 table .span1 {
   float: none;
