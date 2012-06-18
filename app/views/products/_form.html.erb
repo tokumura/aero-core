@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span7">
-    <%= form_for(@product, :html => {:class => 'form-horizontal well'}) do |f| %>
+    <%= form_for(@product, :html => {:multipart => true, :class => 'form-horizontal well'}) do |f| %>
 
       <% if @product.errors.any? %>
         <div id="error_explanation">
@@ -42,6 +42,13 @@
           <label class="control-label" for="input01">コメント</label>
           <div class="controls">
             <%= f.text_area :comment, {:class=>"input-xlarge", :rows=>"3"} %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="input01">商品画像</label>
+          <div class="controls">
+            <%= f.file_field :pict %>
           </div>
         </div>
 

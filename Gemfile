@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'devise', '1.5.3'
 gem 'jquery-rails', ">= 1.0.19"
 gem 'thinreports'
+gem 'carrierwave'
 
 group :development, :test do
   gem "rspec-rails", ">= 2.0.0"

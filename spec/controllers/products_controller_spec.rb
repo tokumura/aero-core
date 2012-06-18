@@ -41,8 +41,10 @@ describe ProductsController do
 
   describe "POST /products (departments is nil)" do
     it "should be successfull" do
-      post 'create', :product => {:id => 4, :name => "カルナート", :price => 10000}, 
-                      :department_param => nil, :category_param => nil
+      post 'create', :product => {:id => 4, :name => "カルナート", :price => 10000, 
+                                  :pict => fixture_file_upload("/images/aero.jpg", "image/jpg"), 
+                                  :pictcode => "aaaa"},
+                                  :department_param => nil, :category_param => nil
       response.should redirect_to(product_path(4))
     end
   end
@@ -50,9 +52,11 @@ describe ProductsController do
   describe "POST /products (departments is not nil)" do
     it "should be successfull" do
       post 'create', :product => {:id => 4, :name => "カルナート", :price => 10000, 
-                                  :classify => "Printer", :comment => "Add Comment"},
-                     :department_param => {:product_id => 4, :department_id => 1},
-                     :category_param => 1
+                                  :classify => "Printer", :comment => "Add Comment",
+                                  :pict => fixture_file_upload("/images/aero.jpg", "image/jpg"), 
+                                  :pictcode => ""},
+                                  :department_param => {:product_id => 4, :department_id => 1},
+                                  :category_param => 1
       response.should redirect_to(product_path(4))
     end
   end
@@ -64,7 +68,8 @@ describe ProductsController do
       pending("product update")
       #post 'update', {:id => 1, :name => "Canon LBP9020", :price => "40000"}
       post 'update', :product => {:id => 1, :name => "Canon LBP9020", :price => 40000, 
-                                  :classify => "Printer", :comment => "Add Comment"},
+                                  :classify => "Printer", :comment => "Add Comment",
+                                  :pict => "", :pictcode => ""},
                       #:department_param => nil
                       :department_param => ["1", "2", "3"]
       response.should redirect_to(product_path(1))
