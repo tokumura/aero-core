@@ -7,6 +7,17 @@ describe "products/new.html.erb" do
     @product = Product.new
     @departments = Department.all
     @categories = Category.all
+
+    @category_names = Hash::new
+    @categories.each do |c|
+      @category_names[c.name] = c.id
+    end
+
+    @products = Product.all
+    @product_names = Hash::new
+    @products.each do |p|
+      @product_names[p.name] = p.id
+    end
   end
   it "商品名のテキストボックス(空)が表示される。" do
     render
