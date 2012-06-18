@@ -63,6 +63,17 @@ class ProductsController < ApplicationController
     @departments = Department.all
     @categories = Category.all
 
+    @category_names = Hash::new
+    @categories.each do |c|
+      @category_names[c.name] = c.id
+    end
+
+    @products = Product.all
+    @product_names = Hash::new
+    @products.each do |p|
+      @product_names[p.name] = p.id
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @product }
