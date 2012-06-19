@@ -1,68 +1,69 @@
 <br/>
 <div class="container">
-  <h1>
-    商品詳細　　
-    <%= link_to "印 刷", {:contoroller=>"product", :action=>"download_detail", :id => @product.id}, 
-                         :class=>"btn btn-primary btn-large" %>
-  </h1>
+  <h1>商品詳細</h1>
   <br/>
-
   <div class="row">
-    <div class="span12">
+    <div class="span4">
       <h3>商品名</h3><br/>
       <p class="lead">　<%= @product.name %></p>
-      <h3>価格</h3><br/>
-      <p class="lead">　<%= @product.price %> 円</p>
+    </div>
+    <div class="span4 offset1">
       <h3>分類</h3><br/>
       <p class="lead">　<%= @product.classify %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <h3>価格</h3><br/>
+      <p class="lead">　<%= @product.price %> 円</p>
+    </div>
+    <div class="span4 offset1">
       <h3>コメント</h3><br/>
       <p class="lead">　<%= @product.comment %></p>
-      <h3>商品画像</h3><br/>
-      <p class="lead">　<img src="<%= @product.pictcode %>"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
       <h3>部署</h3><br/>
       <p class="lead">　<%=@department_name%></p>
+    </div>
+    <div class="span4 offset1">
       <h3>カテゴリ</h3><br/>
       <p class="lead">　<%=@category_name%></p>
-      <p class="lead">
-      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <h3>商品画像</h3><br/>
+      <p class="lead">　<img src="<%= @product.pictcode %>"></p>
+    </div>
+    <div class="span4 offset1">
+      <h3>関連商品</h3><br/>
+      <p class="lead">　Express5800</p>
+      <p class="lead">　CANON LBP9010</p>
+      <p class="lead">　CANON LBP9010</p>
+      <p class="lead">　CANON LBP9010</p>
+      <p class="lead">　CANON LBP9010</p>
+      <p class="lead">　CANON LBP9010</p>
     </div>
   </div>
 
-  <% if current_user.try(:admin?) %>
-    <%= link_to '編集', edit_product_path(@product) %> |
-    <%= link_to '削除', @product, :method => :delete %> |
-  <% else %>
-  <% end %>
-  <%= link_to 'Back', products_path %>
+    <% if current_user.try(:admin?) %>
+      <%= link_to(edit_product_path(@product), :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-edit icon-white"></i> 編 集
+      <% end %>　
+      <%= link_to(@product, :method => :delete, :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-trash icon-white"></i> 削 除
+      <% end %>　
+      <%= link_to(edit_relation_path(@product), :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-plus icon-white"></i> 関連商品編集
+      <% end %>　
+    <% end %>
+    <%= link_to(download_detail_product_path, :id => @product.id, :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-print icon-white"></i> 印 刷
+      <% end %>　
+    <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-circle-arrow-left icon-white"></i> 戻 る
+      <% end %>
 </div>
-
-<%
-=begin
-%>
-          <table class="table table-bordered">
-            <colgroup>
-              <col class="span3">
-              <col class="span9">
-            </colgroup>
-            <thead>
-              <tr>
-                <td><h3>商品名</h3></td> 
-                <td><p class="lead"><%= @product.name %></p></td> 
-              </tr>
-              <tr>
-                <td><h3>価格</h3></td> 
-                <td><p class="lead"><%= @product.price %> 円</p></td> 
-              </tr>
-              <tr>
-                <td><h3>部署</h3></td> 
-                <td><p class="lead"><%= @department_name %></p></td> 
-              </tr>
-              <tr>
-                <td><h3>カテゴリ</h3></td> 
-                <td><p class="lead"><%= @category_name %></p></td> 
-              </tr>
-            </thead>
-          </table>
-<%
-=end
-%>
+<br/>

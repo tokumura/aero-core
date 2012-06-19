@@ -31,6 +31,8 @@ AeroCore::Application.routes.draw do
     end
   end
 
+  resources :relations, :only => ['edit']
+
   devise_for :user
 
   # The priority is based upon order of creation:

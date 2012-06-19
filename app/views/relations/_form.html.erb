@@ -1,0 +1,38 @@
+
+<div class="container">
+  <div class="row">
+    <div class="span10">
+      <h1>関連商品編集</h1>
+      <br/>
+      <p class="lead"><%= @product.name %></p>
+      <div class="row">
+        <div class="span5">
+          <br/>
+          <br/>
+          <%= select_tag :relation_products, options_for_select(@relation_names), {:class=>"multiselect", :multiple=>true, :size=>10} %>
+        </div>
+        <div class="span5">
+          <%= select_tag :relation_category, options_for_select(@category_names) %><br/>
+          <%= select_tag :relation_products, options_for_select(@relation_names), {:multiple=>true, :size=>10} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<script type="text/javascript">
+  $(function(){
+    $.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
+    $(".multiselect").multiselect();
+    $('#switcher').themeswitcher();
+  });
+</script>
+
+    <script type="text/javascript"
+      src="http://jqueryui.com/themeroller/themeswitchertool/">
+    </script>
+    <div id="switcher"></div>
+
+

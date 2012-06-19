@@ -37,6 +37,10 @@ class ProductsController < ApplicationController
   # GET /products/1.xml
   def show
     @product = Product.find(params[:id])
+    @product.relations.each do |r|
+      relation_product = Product.find(r.relation_id)
+      puts relation_product.name
+    end
 
     @department_name = ""
     @product.departments.each do |d|
@@ -133,6 +137,8 @@ class ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     Product.transaction do
+      puts "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      puts params
       @product = Product.find(params[:id])
       DepartmentsProducts.delete_all(:product_id => @product.id)
       CategoriesProducts.delete_all(:product_id => @product.id)

@@ -95,6 +95,7 @@
           </div>
           <br/>
           <div class="controls">
+            <%#= select_tag :relation_products, options_for_select(@product_names), {:multiple =>true, :size => @product_names.size} %>
             <%= select_tag :relation_products, options_for_select(@product_names), {:multiple =>true, :size => @product_names.size} %>
           </div>
         </div>
@@ -108,3 +109,12 @@
     <% end %>
   </div>
 </div>
+
+<script>
+$(document).ready(function(){
+  $('#a2').on("click", function(){
+    $('#relation_products2').append($('#relation_products option:selected'));
+    $('#relation_products2').size($('#relation_products option:selected').size);
+  });
+});
+</script>
