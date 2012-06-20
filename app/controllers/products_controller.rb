@@ -39,7 +39,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.relations.each do |r|
       relation_product = Product.find(r.relation_id)
-      puts relation_product.name
     end
 
     @department_name = ""
@@ -260,8 +259,18 @@ class ProductsController < ApplicationController
 
     report.page.values :title => "商品一覧"
     @products.each do |p|
+      category_names = ""
+      p.categories.each do |c|
+        category = Category.find(c.id)
+        category_names = category_names + category.name + "　"
+      end
       report.page.list(:product_list) do |list|
-        list.add_row :product_name => p.name, :product_price => p.price, :product_classify => p.classify
+        list.add_row :product_name => p.name, 
+                     :product_price => p.price, 
+                     :product_category => category_names,
+                     :product_classify => p.classify,
+                     :product_comment => p.comment,
+                     :product_image => p.pict
       end
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'

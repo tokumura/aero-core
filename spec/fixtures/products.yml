@@ -22,3 +22,10 @@ soft1:
   classify: 心電計
   pict: aero.jpg
   pictcode: 
+toner1:
+  id: 4
+  name: TN-650
+  price: 9000
+  comment: コメント４
+  pict: toner.jpg
+  pictcode:

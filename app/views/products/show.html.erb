@@ -59,11 +59,11 @@
         <i class="icon-plus icon-white"></i> 関連商品編集
       <% end %>　
     <% end %>
-    <%= link_to(download_detail_product_path, :id => @product.id, :class=>"btn btn-primary btn-large") do %>
-        <i class="icon-print icon-white"></i> 印 刷
-      <% end %>　
+    <%= link_to(download_detail_product_path(@product), :class=>"btn btn-primary btn-large") do %>
+      <i class="icon-print icon-white"></i> 印 刷
+    <% end %>　
     <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
-        <i class="icon-circle-arrow-left icon-white"></i> 戻 る
-      <% end %>
+      <i class="icon-circle-arrow-left icon-white"></i> 戻 る
+    <% end %>
 </div>
 <br/>
