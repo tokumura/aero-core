@@ -270,7 +270,7 @@ class ProductsController < ApplicationController
 
       url = p.photo(:thumb)
       response = Net::HTTP.get_response(URI.parse(url)).body
-      filepath = "tmp/reports/" + p.id.to_s + ".jpeg"
+      filepath = "tmp/" + p.id.to_s + ".jpeg"
       open(filepath, "wb") do |file|
         file.puts response
       end
