@@ -285,7 +285,7 @@ class ProductsController < ApplicationController
       end
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
-    
+    FileUtils.rm(Dir.glob(Rails.root.to_s + "/tmp/*.jpeg"))
   end
 
   def download_detail
