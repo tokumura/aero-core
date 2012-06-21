@@ -1,5 +1,7 @@
 # coding: utf-8
 require 'thinreports'
+require 'net/http'
+require 'uri'
 
 class ProductsController < ApplicationController
 
@@ -254,6 +256,7 @@ class ProductsController < ApplicationController
       end
     end
 
+
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'products_list.tlf')
     report.start_new_page
 
@@ -264,17 +267,25 @@ class ProductsController < ApplicationController
         category = Category.find(c.id)
         category_names = category_names + category.name + "　"
       end
+
+      url = p.photo(:thumb)
+      response = Net::HTTP.get_response(URI.parse(url)).body
+      filepath = "tmp/reports/" + p.id.to_s + ".jpeg"
+      open(filepath, "wb") do |file|
+        file.puts response
+      end
+
       report.page.list(:product_list) do |list|
         list.add_row :product_name => p.name, 
                      :product_price => p.price, 
                      :product_category => category_names,
                      :product_classify => p.classify,
                      :product_comment => p.comment,
-                     :product_image => p.pict
-                     #:product_image => p.pictcode.to_s.unpack("m")[0]
+                     :product_image => filepath
       end
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
+    
   end
 
   def download_detail

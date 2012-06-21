@@ -1,3 +1,15 @@
-access_key_id: AKIAIR44Y6G4WF3RDI5Q
-secret_access_key: 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
-s3_host_name: s3-ap-northeast-1.amazonaws.com
+development:
+  bucket: aero-smc-dev
+  access_key_id: AKIAIR44Y6G4WF3RDI5Q
+  secret_access_key: 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
+  s3_host_name: s3-ap-northeast-1.amazonaws.com
+test:
+  bucket: aero-smc-test
+  access_key_id: AKIAIR44Y6G4WF3RDI5Q
+  secret_access_key: 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
+  s3_host_name: s3-ap-northeast-1.amazonaws.com
+production:
+  bucket: aero-smc
+  access_key_id: AKIAIR44Y6G4WF3RDI5Q
+  secret_access_key: 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
+  s3_host_name: s3-ap-northeast-1.amazonaws.com

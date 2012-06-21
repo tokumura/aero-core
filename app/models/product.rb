@@ -10,8 +10,7 @@ class Product < ActiveRecord::Base
                     },
                       :storage => :s3,
                       :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                      :path => ":attachment/:id/:style.:extension",
-                      :bucket => 'aero-smc'
+                      :path => ":attachment/:id/:style.:extension"
 =begin
   mount_uploader :pict, PhotoUploader
 
