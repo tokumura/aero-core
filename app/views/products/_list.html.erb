@@ -63,7 +63,7 @@
                     <tr onclick="location.href='<%=product_path(product)%>'">
                       <td>
                         <div align="center">
-                          <img src="<%= product.pictcode %>" widht="80px" height="60px">
+                          <%= image_tag product.photo(:thumb) %>
                         </div>
                       </td> 
                       <td><%= product.name %></td> 
@@ -113,7 +113,7 @@
                       <% end %>
                         <td>
                           <div align="center">
-                            <img src="<%= product.pictcode %>" widht="80px" height="60px">
+                            <%= image_tag product.photo(:thumb) %>
                           </div>
                         </td> 
                         <td><%= product.name %></td> 

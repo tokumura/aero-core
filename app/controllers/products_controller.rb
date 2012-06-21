@@ -271,6 +271,7 @@ class ProductsController < ApplicationController
                      :product_classify => p.classify,
                      :product_comment => p.comment,
                      :product_image => p.pict
+                     #:product_image => p.pictcode.to_s.unpack("m")[0]
       end
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'

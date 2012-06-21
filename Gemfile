@@ -10,6 +10,9 @@ gem 'devise', '1.5.3'
 gem 'jquery-rails', ">= 1.0.19"
 gem 'thinreports'
 gem 'carrierwave'
+gem 'paperclip'
+gem 'aws-s3', :require => 'aws/s3'
+gem 'aws-sdk'
 
 group :development, :test do
   gem "rspec-rails", ">= 2.0.0"

@@ -1,4 +1,4 @@
-# coding: utf-8
+#1 coding: utf-8
 require 'spec_helper'
 
 describe ProductsController do
@@ -42,8 +42,7 @@ describe ProductsController do
   describe "POST /products (departments is nil)" do
     it "should be successfull" do
       post 'create', :product => {:id => 5, :name => "カルナート", :price => 10000, 
-                                  :pict => fixture_file_upload("/images/aero.jpg", "image/jpg"), 
-                                  :pictcode => "aaaa"},
+                                  },
                                   :department_param => nil, :category_param => nil
       response.should redirect_to(product_path(5))
     end
@@ -53,8 +52,7 @@ describe ProductsController do
     it "should be successfull" do
       post 'create', :product => {:id => 5, :name => "カルナート", :price => 10000, 
                                   :classify => "Printer", :comment => "Add Comment",
-                                  :pict => fixture_file_upload("/images/aero.jpg", "image/jpg"), 
-                                  :pictcode => ""},
+                                  },
                                   :department_param => {:product_id => 5, :department_id => 1},
                                   :category_param => 1
       response.should redirect_to(product_path(5))

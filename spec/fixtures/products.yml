@@ -4,28 +4,36 @@ printer1:
   price: 50000
   comment: コメント１
   classify: プリンター
-  pict: aero.jpg
-  pictcode: 
+  photo_file_name: photo1.jpg
+  photo_content_type: 
+  photo_file_size:
+  photo_updated_at:
 printer2:
   id: 2
   name: LBP3100
   price: 9690
   comment: コメント２
   classify: プリンター
-  pict: aero.jpg
-  pictcode: 
+  photo_file_name: photo2.jpg
+  photo_content_type: 
+  photo_file_size:
+  photo_updated_at:
 soft1:
   id: 3
   name: 500A
   price: 148000
   comment: コメント３
   classify: 心電計
-  pict: aero.jpg
-  pictcode: 
+  photo_file_name: photo3.jpg
+  photo_content_type: 
+  photo_file_size:
+  photo_updated_at:
 toner1:
   id: 4
   name: TN-650
   price: 9000
   comment: コメント４
-  pict: toner.jpg
-  pictcode:
+  photo_file_name: photo4.jpg
+  photo_content_type: 
+  photo_file_size:
+  photo_updated_at:

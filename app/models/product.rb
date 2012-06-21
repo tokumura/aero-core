@@ -2,7 +2,17 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :departments
   has_and_belongs_to_many :categories
   has_many :relations
-
+  has_attached_file :photo,
+                    :styles => {
+                      :thumb  => "80x60",
+                      :medium => "120x90",
+                      :large  => "160x120"
+                    },
+                      :storage => :s3,
+                      :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+                      :path => ":attachment/:id/:style.:extension",
+                      :bucket => 'aero-smc'
+=begin
   mount_uploader :pict, PhotoUploader
 
   before_save :set_code
@@ -21,4 +31,5 @@ class Product < ActiveRecord::Base
     end
     products
   end
+=end
 end
