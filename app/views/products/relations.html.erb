@@ -1,10 +1,14 @@
-<%= form_for(@product) do |f| %>
+
+<%= form_tag({ :controller => 'products', :action => 'relations_update' }, { :method => 'post'}) do %>
 
 <div class="container">
   <h1>関連商品編集</h1>
   <br/>
   <div class="field">
-    <h3><%=@product.name%></h3>
+    <h3>
+      <%=@product.name%>　
+      <%= submit_tag '更 新', {:class=>"btn btn-primary"} %>
+    </h3>
   </div>
   <br/>
 
@@ -12,16 +16,12 @@
     <% @categories.each do |category| %>
     <% @products = Array.new(0) %>
       <% @categories_products = CategoriesProducts.find_all_by_category_id(category.id) %>
-      <% puts "categories_products.size !!!" %>
-      <% puts @categories_products.size %>
       <li><%= category.name %> (<%= @categories_products.size %>)
         <% @categories_products.each do |cp| %>
           <ul>
             <% @product_item = Product.find(cp.product_id) %>
             <% @checked = false %>
             <% @product.relations.each do |pr| %>
-              <% puts "@product_item:" + @product_item.id.to_s + ":" + @product_item.name.to_s %>
-              <% puts "@pr.relation_id:" + pr.relation_id.to_s %>
               <% if @product_item.id.to_s == pr.relation_id.to_s %>
                 <% @checked = true %>
               <% end %>
@@ -39,11 +39,7 @@
 
   <br/>
   <br/>
-  <br/>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 </div>
 
 <% end %>

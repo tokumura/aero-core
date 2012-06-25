@@ -30,6 +30,9 @@ AeroCore::Application.routes.draw do
     member do
       get :relations
     end
+    member do
+      post :relations_update
+    end
   end
 
   resources :users do

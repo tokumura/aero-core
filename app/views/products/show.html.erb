@@ -60,7 +60,10 @@
     </div>
     <div class="span4 offset1">
       <h3>関連商品</h3><br/>
-      <p class="lead">　CANON LBP9010</p>
+      <% @product.relations.each do |pr| %>
+        <% @product_item = Product.find(pr.relation_id) %>
+        <p class="lead">　<%= @product_item.name %></p>
+      <% end %>
     </div>
   </div>
 

@@ -153,7 +153,6 @@ class ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     Product.transaction do
-      puts params
       @product = Product.find(params[:id])
       DepartmentsProducts.delete_all(:product_id => @product.id)
       CategoriesProducts.delete_all(:product_id => @product.id)
@@ -337,6 +336,30 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html # relations.html.erb
       format.xml  { render :xml => @product.relations }
+    end
+  end
+
+  def relations_update
+    @product = Product.find(params[:id])
+    Relation.delete_all(:product_id => @product.id)
+
+    save_success = false
+    params[:relation_products] && params[:relation_products].each do |relation_id|
+      @relation = Relation.new(:product_id=>@product.id, :relation_id=>relation_id)
+      save_success = @relation.save
+      if save_success == false
+        break
+      end
+    end
+
+    respond_to do |format|
+      if save_success
+        format.html { redirect_to(@product, :notice => 'Product Relations was successfully created.') }
+        format.xml  { render :xml => @product, :status => :created, :location => @product }
+      else
+        format.html { render :action => "show" }
+        format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
