@@ -28,7 +28,11 @@
             <% end %>
             <li>&nbsp;
               <span class="file">
-                <%= check_box_tag("relation_products[]", @product_item.id, @checked) %>&nbsp;<%= @product_item.name%>
+                <%= check_box_tag("relation_products[]", @product_item.id, @checked) %>&nbsp;
+                <%= @product_item.name%>&nbsp;
+                <% if @product_item.classify != "" %>
+                  [<%= @product_item.classify%>]
+                <% end %>
               </span>
             </li>
           </ul>
