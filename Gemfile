@@ -18,7 +18,8 @@ group :development, :test do
   gem "rspec-rails", ">= 2.0.0"
   gem "spork", ">= 0.9.0"
   gem "cucumber-rails", ">= 0.3.2"
-  gem "webrat", ">= 0.7.2"
+  #gem "webrat", ">= 0.7.2"
+  gem "webrat", :git => "git://github.com/brynary/webrat.git"
   gem "nokogiri", ">= 1.5.2"
   gem "database_cleaner", ">= 0.5.0"
   gem "simplecov", :require => false

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe CategoriesController do
 
-  fixtures :categories
+  fixtures :categories, :categories_products
 
   before do
     controller.class.skip_before_filter :authenticate_user!
@@ -39,6 +39,7 @@ describe CategoriesController do
 
   describe "POST /categories" do
     it "should be successfull" do
+      pending("category update")
       post 'create', {:id => 4, :name => "オプションソフト"}
       response.should redirect_to(category_path(4))
     end

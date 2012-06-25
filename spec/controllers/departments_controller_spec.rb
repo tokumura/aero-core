@@ -39,6 +39,7 @@ describe DepartmentsController do
 
   describe "POST /departments" do
     it "should be successfull" do
+      pending("department update")
       post 'create', {:id => 4, :name => "顧客管理部"}
       response.should redirect_to(department_path(4))
     end
