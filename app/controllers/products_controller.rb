@@ -120,6 +120,21 @@ class ProductsController < ApplicationController
           @categories_products = CategoriesProducts.new(:product_id => @product.id, :category_id => params[:category_param])
           save_success = @categories_products.save
         end
+      else
+        # Not DRY! Do refactoring!
+        @departments = Department.all
+        @categories = Category.all
+
+        @category_names = Hash::new
+        @categories.each do |c|
+          @category_names[c.name] = c.id
+        end
+
+        @products = Product.all
+        @product_names = Hash::new
+        @products.each do |p|
+          @product_names[p.name] = p.id
+        end
       end
 
       respond_to do |format|
@@ -138,7 +153,6 @@ class ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     Product.transaction do
-      puts "aaaaaaaaaaaaaaaaaaaaaaaaa"
       puts params
       @product = Product.find(params[:id])
       DepartmentsProducts.delete_all(:product_id => @product.id)
@@ -164,6 +178,21 @@ class ProductsController < ApplicationController
           format.html { redirect_to(@product, :notice => '更新しました。') }
           format.xml  { head :ok }
         else
+          # Not DRY! Do refactoring!
+          @departments = Department.all
+          @categories = Category.all
+
+          @category_names = Hash::new
+          @categories.each do |c|
+            @category_names[c.name] = c.id
+          end
+
+          @products = Product.all
+          @product_names = Hash::new
+          @products.each do |p|
+            @product_names[p.name] = p.id
+          end
+
           format.html { render :action => "edit" }
           format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
         end
@@ -300,4 +329,15 @@ class ProductsController < ApplicationController
  
     send_data report.generate, :filename => "products_detail.pdf", :type => 'application/pdf'
   end
+
+  def relations
+    @product = Product.find(params[:id])
+    @categories = Category.all
+
+    respond_to do |format|
+      format.html # relations.html.erb
+      format.xml  { render :xml => @product.relations }
+    end
+  end
+
 end

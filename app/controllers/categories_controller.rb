@@ -83,4 +83,17 @@ class CategoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def products
+    @categories_products = CategoriesProducts.find_all_by_category_id(params[:id])
+    @products = Array.new(0)
+    @categories_products.each do |cp|
+      product = Product.find(cp.product_id)
+      @products << product
+    end
+
+    respond_to do |format|
+      format.xml  { render :xml => @products }
+    end
+  end
 end

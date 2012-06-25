@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="span10">
@@ -6,33 +5,76 @@
       <br/>
       <p class="lead"><%= @product.name %></p>
       <div class="row">
-        <div class="span5">
+        <div class="span4">
           <br/>
           <br/>
           <%= select_tag :relation_products, options_for_select(@relation_names), {:class=>"multiselect", :multiple=>true, :size=>10} %>
         </div>
-        <div class="span5">
-          <%= select_tag :relation_category, options_for_select(@category_names) %><br/>
-          <%= select_tag :relation_products, options_for_select(@relation_names), {:multiple=>true, :size=>10} %>
+        <div class="span2">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <input type="button" name="move_right" value=">>" /><br/><br/>
+          <input type="button" name="move_left" value="<<" />
+        </div>
+        <div class="span4">
+          <div class="btn-group">
+            <button class="btn btn-primary">カテゴリ選択</button>
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% @categories.each do |c| %>
+                <li><%= link_to c.name, get_items_relation_path(c.id), {:remote => true, :class=>""} %></li>
+              <% end %>
+            </ul>
+          </div>
+          <br/>
+          <%= select_tag :products, '', {:include_blank=>true, :class=>"multiselect", :multiple=>true, :size=>10} %>
         </div>
       </div>
     </div>
   </div>
+  <%=link_to '登録', relation_path(0), {:method=>:put, :params=>{:relation_products_params=>"aaaaaaaaaaaaa"}, :class=>"btn btn-primary btn-large"} %>
 </div>
 
 <br/>
+<br/>
 
 <script type="text/javascript">
-  $(function(){
-    $.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
-    $(".multiselect").multiselect();
-    $('#switcher').themeswitcher();
+
+$(document).ready(function() {
+
+  $("input[name=move_left]").click(function() {
+    move("products", "relation_products");
   });
+
+  $("input[name=move_right]").click(function() {
+    move("relation_products", "products");
+  });
+
+  function move(_this, target) {
+    $("select[id=" + _this + "] option:selected").each(function() {
+      $("select[id=" + target + "]").append($(this).clone());
+      $(this).remove();
+    }); 
+  }
+
+})
+
+
 </script>
 
-    <script type="text/javascript"
-      src="http://jqueryui.com/themeroller/themeswitchertool/">
-    </script>
-    <div id="switcher"></div>
+<%
+=begin
+%>
 
-
+          <%= link_to "time", upanel_relation_path(1), :remote => true %>
+          <%= select_tag :relation_category, options_for_select(@category_names), 
+                                             {:remote=>true, :onchange=>remote_function(:url => {:action => "get_items"})}  %><br/>
+          <%= select_tag :relation_products, options_for_select(@product_items), {:multiple=>true, :size=>10} %>
+<%
+=end
+%>

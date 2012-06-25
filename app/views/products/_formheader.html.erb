@@ -1,0 +1,16 @@
+<div class="container-fluid">
+<div class="row-fulid">
+  <% if @product.errors.any? %>
+    <div class="alert alert-error">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <h4 class="alert-heading">
+        <%= pluralize(@product.errors.count, "") %>つの項目で入力エラーが見つかりました。
+      </h4>
+      <% @product.errors.full_messages.each do |msg| %>
+        　・ <%= msg %><br/>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</div>
+

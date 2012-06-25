@@ -11,24 +11,8 @@ class Product < ActiveRecord::Base
                       :storage => :s3,
                       :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
                       :path => ":attachment/:id/:style.:extension"
-=begin
-  mount_uploader :pict, PhotoUploader
 
-  before_save :set_code
+  validates_presence_of :name, :price
 
-  def set_code
-    self.pictcode = "data:image/#{self.pict.file.extension};base64,"
-    self.pictcode << Base64.encode64(self.pict.file.read)
-  end
 
-  def get_belongs_to(user)
-    departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
-    products = Array.new(0)
-    departments_products.each do |dp|
-      product = Product.find(dp.product_id)
-      products << product
-    end
-    products
-  end
-=end
 end

@@ -1,0 +1,49 @@
+<%= form_for(@product) do |f| %>
+
+<div class="container">
+  <h1>関連商品編集</h1>
+  <br/>
+  <div class="field">
+    <h3><%=@product.name%></h3>
+  </div>
+  <br/>
+
+  <ul id="tv" class="treeview">
+    <% @categories.each do |category| %>
+    <% @products = Array.new(0) %>
+      <% @categories_products = CategoriesProducts.find_all_by_category_id(category.id) %>
+      <% puts "categories_products.size !!!" %>
+      <% puts @categories_products.size %>
+      <li><%= category.name %> (<%= @categories_products.size %>)
+        <% @categories_products.each do |cp| %>
+          <ul>
+            <% @product_item = Product.find(cp.product_id) %>
+            <% @checked = false %>
+            <% @product.relations.each do |pr| %>
+              <% puts "@product_item:" + @product_item.id.to_s + ":" + @product_item.name.to_s %>
+              <% puts "@pr.relation_id:" + pr.relation_id.to_s %>
+              <% if @product_item.id.to_s == pr.relation_id.to_s %>
+                <% @checked = true %>
+              <% end %>
+            <% end %>
+            <li>&nbsp;
+              <span class="file">
+                <%= check_box_tag("relation_products[]", @product_item.id, @checked) %>&nbsp;<%= @product_item.name%>
+              </span>
+            </li>
+          </ul>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <br/>
+  <br/>
+  <br/>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+</div>
+
+<% end %>

@@ -1,7 +1,13 @@
 AeroCore::Application.routes.draw do
-  resources :categories
   resources :departments
   resources :welcome, :only => ['index']
+
+  resources :categories do
+    member do
+      get :products
+    end
+  end
+
   resources :products do
     collection do
       post :find
@@ -21,7 +27,11 @@ AeroCore::Application.routes.draw do
     member do
       get :download_detail
     end
+    member do
+      get :relations
+    end
   end
+
   resources :users do
     member do
       get :make_admin
@@ -31,7 +41,15 @@ AeroCore::Application.routes.draw do
     end
   end
 
-  resources :relations, :only => ['edit']
+  #resources :relations, :only => ['edit', 'index']
+  resources :relations do
+    member do
+      get :upanel
+    end
+    member do
+      get :get_items
+    end
+  end
 
   devise_for :user
 

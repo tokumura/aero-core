@@ -1,18 +1,7 @@
+
 <div class="row">
   <div class="span7">
     <%= form_for(@product, :html => {:multipart => true, :class => 'form-horizontal well'}) do |f| %>
-
-      <% if @product.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-          <ul>
-          <% @product.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
 
       <fieldset>
 
@@ -89,18 +78,6 @@
           </div>
         </div>
 
-        <div class="control-group">
-          <label class="control-label" for="optionsCheckbox">関連商品</label>
-          <div class="controls">
-            <%= select_tag :relation_category, options_for_select(@category_names) %>
-          </div>
-          <br/>
-          <div class="controls">
-            <%#= select_tag :relation_products, options_for_select(@product_names), {:multiple =>true, :size => @product_names.size} %>
-            <%= select_tag :relation_products, options_for_select(@product_names), {:multiple =>true, :size => @product_names.size} %>
-          </div>
-        </div>
-
         <div class="form-actions">
           <%= f.submit '　登　録　', {:class=>"btn btn-primary"} %>
         </div>
@@ -110,12 +87,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-$(document).ready(function(){
-  $('#a2').on("click", function(){
-    $('#relation_products2').append($('#relation_products option:selected'));
-    $('#relation_products2').size($('#relation_products option:selected').size);
-  });
-});
-</script>

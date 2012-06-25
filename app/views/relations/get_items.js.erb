@@ -1,0 +1,4 @@
+$('#products > option').remove();
+<% @product_items.each do |pi| %>
+  $('<option>').attr({value: "<%=pi.id.to_s%>"}).text("<%=pi.name%>").appendTo("#products");
+<% end %>
