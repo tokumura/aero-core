@@ -39,7 +39,7 @@ describe CategoriesController do
 
   describe "POST /categories" do
     it "should be successfull" do
-      pending("category update")
+      pending("category create")
       post 'create', {:id => 4, :name => "オプションソフト"}
       response.should redirect_to(category_path(4))
     end
@@ -47,6 +47,7 @@ describe CategoriesController do
 
   describe "PUT /categories" do
     it "should be successfull" do
+      pending("category update")
       post 'update', {:id => 1, :name => "メインソフト"}
       response.should redirect_to(category_path(1))
     end
