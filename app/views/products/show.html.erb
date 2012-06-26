@@ -1,71 +1,69 @@
 <br/>
 <div class="container">
-  <h1>商品詳細</h1>
-  <br/>
+  <div class="page-header">
+    <h1>商品詳細</h1>
+  </div>
   <% if current_user.try(:admin?) %>
     <%= link_to(edit_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-edit icon-white"></i> 編 集
+      <i class="icon-edit icon-white"></i>&nbsp;&nbsp;編　集
     <% end %>　
-    <%= link_to(@product, :method => :delete, :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-trash icon-white"></i> 削 除
-    <% end %>　
-    <%#= link_to(edit_relation_path(@product), :class=>"btn btn-primary btn-large") do %>
     <%= link_to(relations_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-plus icon-white"></i> 関連商品編集
+      <i class="icon-plus icon-white"></i>&nbsp;&nbsp;関連商品編集
     <% end %>　
+    <%= link_to(@product, :method => :delete, :confirm=>'削除してよろしいですか？', :class=>"btn btn-primary btn-large") do %>
+      <i class="icon-trash icon-white"></i>&nbsp;&nbsp;削　除
+    <% end %>　　　
   <% end %>
   <%= link_to(download_detail_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-    <i class="icon-print icon-white"></i> 印 刷
+    <i class="icon-print icon-white"></i>&nbsp;&nbsp;印　刷
   <% end %>　
   <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
-    <i class="icon-circle-arrow-left icon-white"></i> 戻 る
+    <i class="icon-circle-arrow-left icon-white"></i>&nbsp;&nbsp;一覧に戻る
   <% end %>
   <br/>
   <br/>
-  <div class="row">
-    <div class="span4">
-      <h3>商品名</h3><br/>
-      <p class="lead">　<%= @product.name %></p>
-    </div>
-    <div class="span4 offset1">
-      <h3>分類</h3><br/>
-      <p class="lead">　<%= @product.classify %></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span4">
-      <h3>価格</h3><br/>
-      <p class="lead">　<%= @product.price %> 円</p>
-    </div>
-    <div class="span4 offset1">
-      <h3>コメント</h3><br/>
-      <p class="lead">　<%= @product.comment %></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span4">
-      <h3>部署</h3><br/>
-      <p class="lead">　<%=@department_name%></p>
-    </div>
-    <div class="span4 offset1">
-      <h3>カテゴリ</h3><br/>
-      <p class="lead">　<%=@category_name%></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span4">
-      <h3>商品画像</h3><br/>
-                          
-      <p class="lead">　<%= image_tag @product.photo.url %></p>
-    </div>
-    <div class="span4 offset1">
-      <h3>関連商品</h3><br/>
-      <% @product.relations.each do |pr| %>
-        <% @product_item = Product.find(pr.relation_id) %>
-        <p class="lead">　<%= @product_item.name %></p>
-      <% end %>
-    </div>
-  </div>
 
+  <table class="table-product-show">
+    <tr>
+      <td rowspan="6" class="table-product-show-img">
+        <div style="width:250px"><%= image_tag @product.photo.url %></div>
+      </td>
+      <td class="column"><h3>商品名</h3></td>
+      <td class="data"><%= @product.name %></td>
+    </tr>
+    <tr>
+      <td class="column"><h3>価格</h3></td>
+      <td class="data"><%= number_to_currency(@product.price, :precision=>0, :format=>"%n%u", :unit=>"円") %></td>
+    </tr>
+    <tr>
+      <td class="column"><h3>分類</h3></td>
+      <td class="data"><%= @product.classify %></td>
+    </tr>
+    <tr>
+      <td class="column"><h3>部署</h3></td>
+      <td class="data"><%=@department_name %></td>
+    </tr>
+    <tr>
+      <td class="column"><h3>カテゴリ</h3></td>
+      <td class="data"><%= @category_name %></td>
+    </tr>
+    <tr>
+      <td class="column"><h3>関連商品</h3></td>
+      <td class="data">
+        <br/>
+        <% @product.relations.each do |pr| %>
+          <% @product_item = Product.find(pr.relation_id) %>
+          <%= @product_item.name %><br/>
+        <% end %>
+        <br/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="table-product-show comment">
+        <h3>コメント</h3><br/>　
+        <%= @product.comment %>
+      </td>
+    </tr>
+  </table>
 </div>
-<br/>
+

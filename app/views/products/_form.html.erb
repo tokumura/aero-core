@@ -1,6 +1,19 @@
 
 <div class="row">
   <div class="span7">
+    
+    <% if request.path_info.index("edit") != nil %>
+      <%= link_to(product_path(@product), :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-circle-arrow-left icon-white"></i> 詳細に戻る
+      <% end %>　
+    <% end %>
+    <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
+      <i class="icon-circle-arrow-left icon-white"></i> 一覧に戻る
+    <% end %>
+
+    <br/>
+    <br/>
+
     <%= form_for(@product, :html => {:multipart => true, :class => 'form-horizontal well'}) do |f| %>
 
       <fieldset>

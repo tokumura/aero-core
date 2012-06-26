@@ -1,0 +1,36 @@
+/*!
+ * Application Original CSS.
+ */
+
+/* For product show */
+.table-product-show {
+  width:  800px;
+  padding: 10px;
+  font-size: 18px;
+  border: #000000 solid;
+  border-width: 0px;
+}
+.table-product-show-img {
+  padding: 40px;
+  vertical-align: top;
+}
+.column {
+  height:  50px;
+  width:  150px;
+  border: #A9A9A9 solid;
+  border-width: 0 0 1px 0;
+}
+.data {
+  height:  50px;
+  width:  400px;
+  border: #A9A9A9 solid;
+  border-width: 0 0 1px 0;
+}
+.comment {
+  vertical-align: top;
+  text-align: left;
+  height: 100px;
+  width:  800px;
+  padding-left: 50px;
+}
+

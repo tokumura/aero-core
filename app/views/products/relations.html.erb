@@ -1,49 +1,51 @@
-
 <%= form_tag({ :controller => 'products', :action => 'relations_update' }, { :method => 'post'}) do %>
 
 <div class="container">
-  <h1>関連商品編集</h1>
-  <br/>
-  <div class="field">
-    <h3>
-      <%=@product.name%>　
-      <%= submit_tag '更 新', {:class=>"btn btn-primary"} %>
-    </h3>
+  <div class="page-header">
+    <h1>関連商品編集</h1>
   </div>
+  <%= link_to(product_path(@product), :class=>"btn btn-primary btn-large") do %>
+    <i class="icon-circle-arrow-left icon-white"></i> 詳細に戻る
+  <% end %>　
+  <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
+    <i class="icon-circle-arrow-left icon-white"></i> 一覧に戻る
+  <% end %>
+
+  <br/>
   <br/>
 
-  <ul id="tv" class="treeview">
-    <% @categories.each do |category| %>
-    <% @products = Array.new(0) %>
-      <% @categories_products = CategoriesProducts.find_all_by_category_id(category.id) %>
-      <li><%= category.name %> (<%= @categories_products.size %>)
-        <% @categories_products.each do |cp| %>
-          <ul>
-            <% @product_item = Product.find(cp.product_id) %>
-            <% @checked = false %>
-            <% @product.relations.each do |pr| %>
-              <% if @product_item.id.to_s == pr.relation_id.to_s %>
-                <% @checked = true %>
-              <% end %>
-            <% end %>
-            <li>&nbsp;
-              <span class="file">
-                <%= check_box_tag("relation_products[]", @product_item.id, @checked) %>&nbsp;
-                <%= @product_item.name%>&nbsp;
-                <% if @product_item.classify != "" %>
-                  [<%= @product_item.classify%>]
+  <h3><%=@product.name%></h3>
+  <div style="padding-left:30px;">
+    <ul id="tv" class="treeview">
+      <% @categories.each do |category| %>
+      <% @products = Array.new(0) %>
+        <% @categories_products = CategoriesProducts.find_all_by_category_id(category.id) %>
+        <li><%= category.name %> (<%= @categories_products.size %>)
+          <% @categories_products.each do |cp| %>
+            <ul>
+              <% @product_item = Product.find(cp.product_id) %>
+              <% @checked = false %>
+              <% @product.relations.each do |pr| %>
+                <% if @product_item.id.to_s == pr.relation_id.to_s %>
+                  <% @checked = true %>
                 <% end %>
-              </span>
-            </li>
-          </ul>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <br/>
-  <br/>
-
+              <% end %>
+              <li>&nbsp;
+                <span class="file">
+                  <%= check_box_tag("relation_products[]", @product_item.id, @checked) %>&nbsp;
+                  <%= @product_item.name%>&nbsp;
+                  <% if @product_item.classify != "" %>
+                    [<%= @product_item.classify%>]
+                  <% end %>
+                </span>
+              </li>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <br/>
+    <%= submit_tag '　更　新　', {:class=>"btn btn-primary"} %>
+  </div>
 </div>
-
 <% end %>

@@ -26,13 +26,19 @@
         <div class="row-fluid">
           <p>
             <% if current_user.try(:admin?) %>
-              <a class="btn btn-primary btn-large" href="<%=new_product_path %>">商品登録</a>
+              <a class="btn btn-primary btn-large" href="<%=new_product_path %>">
+                <i class="icon-plus icon-white"></i>&nbsp;&nbsp;商品登録
+              </a>
             <% else %>
-              <a class="btn btn-primary btn-large disabled" href="">商品登録</a>
-            <% end %>
-            <%= link_to "一覧印刷", {:contoroller=>"product", :action=>"download", 
+              <a class="btn btn-primary btn-large disabled" href="">
+                <i class="icon-print icon-white"></i>&nbsp;&nbsp;商品登録
+              </a>
+            <% end %>　
+            <%= link_to( {:contoroller=>"product", :action=>"download", 
                                       :selected_department_id=>@selected_department_id,
-                                      :search_string=>@search_string}, :class=>"btn btn-primary btn-large" %>
+                                      :search_string=>@search_string}, :class=>"btn btn-primary btn-large") do %>
+              <i class="icon-print icon-white"></i>&nbsp;&nbsp;一覧印刷
+          <% end %>　
           </p>
 
           <div class="tabbable">
