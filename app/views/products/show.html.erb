@@ -3,29 +3,31 @@
   <div class="page-header">
     <h1>商品詳細</h1>
   </div>
-  <% if current_user.try(:admin?) %>
-    <%= link_to(edit_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-edit icon-white"></i>&nbsp;&nbsp;編　集
+  <div style="padding-left:30px;">
+    <% if current_user.try(:admin?) %>
+      <%= link_to(edit_product_path(@product), :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-edit icon-white"></i>&nbsp;&nbsp;編　集
+      <% end %>　
+      <%= link_to(relations_product_path(@product), :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-plus icon-white"></i>&nbsp;&nbsp;関連商品編集
+      <% end %>　
+      <%= link_to(@product, :method => :delete, :confirm=>'削除してよろしいですか？', :class=>"btn btn-primary btn-large") do %>
+        <i class="icon-trash icon-white"></i>&nbsp;&nbsp;削　除
+      <% end %>　　　
+    <% end %>
+    <%= link_to(download_detail_product_path(@product), :class=>"btn btn-primary btn-large") do %>
+      <i class="icon-print icon-white"></i>&nbsp;&nbsp;印　刷
     <% end %>　
-    <%= link_to(relations_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-plus icon-white"></i>&nbsp;&nbsp;関連商品編集
-    <% end %>　
-    <%= link_to(@product, :method => :delete, :confirm=>'削除してよろしいですか？', :class=>"btn btn-primary btn-large") do %>
-      <i class="icon-trash icon-white"></i>&nbsp;&nbsp;削　除
-    <% end %>　　　
-  <% end %>
-  <%= link_to(download_detail_product_path(@product), :class=>"btn btn-primary btn-large") do %>
-    <i class="icon-print icon-white"></i>&nbsp;&nbsp;印　刷
-  <% end %>　
-  <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
-    <i class="icon-circle-arrow-left icon-white"></i>&nbsp;&nbsp;一覧に戻る
-  <% end %>
-  <br/>
+    <%= link_to(products_path, :class=>"btn btn-primary btn-large") do %>
+      <i class="icon-circle-arrow-left icon-white"></i>&nbsp;&nbsp;一覧に戻る
+    <% end %>
+  </div>
+
   <br/>
 
   <table class="table-product-show">
     <tr>
-      <td rowspan="6" class="table-product-show-img">
+      <td rowspan="5" class="table-product-show-img">
         <div style="width:250px"><%= image_tag @product.photo.url %></div>
       </td>
       <td class="column"><h3>商品名</h3></td>
@@ -48,22 +50,55 @@
       <td class="data"><%= @category_name %></td>
     </tr>
     <tr>
-      <td class="column"><h3>関連商品</h3></td>
-      <td class="data">
-        <br/>
-        <% @product.relations.each do |pr| %>
-          <% @product_item = Product.find(pr.relation_id) %>
-          <%= @product_item.name %><br/>
-        <% end %>
-        <br/>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" class="table-product-show comment">
-        <h3>コメント</h3><br/>　
-        <%= @product.comment %>
-      </td>
+      <% if @product.comment != "" %>
+        <td colspan="3" class="table-product-show comment">
+            <h3>コメント</h3>　
+            <div class="hero-unit-custom">
+              <%=simple_format(@product.comment) %>
+            </div>
+        </td>
+      <% elsif %>
+        <td colspan="3" class="table-product-show"></td>
+      <% end %>
     </tr>
   </table>
+
+  <% if @product.relations != nil && @product.relations.size > 0 %>
+    <div class="span10" style="padding-left:20px;">
+      <h3>関連商品</h3>　
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 15%"></th> 
+            <th style="width: 50%">商品名</th> 
+            <th style="width: 35%">カテゴリ</th> 
+          </tr>
+        </thead>
+        <tbody>
+        <% @product.relations.each do |pr| %>
+
+          <% @product_item = Product.find(pr.relation_id) %>
+          <% @category_name = "" %>
+          <% @product_item.categories.each do |c| %>
+            <% category = Category.find(c.id) %>
+            <% @category_name = @category_name + category.name %>
+          <% end %>
+
+          <tr onclick="location.href='<%=product_path(@product_item)%>'">
+            <td>
+              <div align="center">
+                <%= image_tag @product_item.photo(:thumb) %>
+              </div>
+            </td> 
+            <td><%= @product_item.name %></td> 
+            <td>
+              <%= @category_name %>
+            </td> 
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
 
