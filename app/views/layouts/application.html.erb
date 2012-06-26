@@ -89,7 +89,18 @@
     </div>
    </div>
 
-<%= yield %>
+  <%= yield %>
+
+  <hr>
+  <footer>
+    <% users = User.all %>
+    <% if users.size == 0 %>
+      <p>　　&copy; <%= link_to 'SAN-EI MEDSYS.CO.,LTD 2012', users_path %></p>
+    <% elsif %>
+      <p>　　&copy; SAN-EI MEDSYS.CO.,LTD 2012</p>
+    <% end %>
+    <br/>
+  </footer>
 
 </body>
 </html>

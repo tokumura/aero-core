@@ -32,7 +32,7 @@ describe "products/show.html.erb" do
 
   it "価格'50000'が表示される。" do
     render
-    rendered.should have_content("50000")
+    rendered.should have_content("50,000円")
   end
   it "部署名'フィールドサポート'が表示される。" do
     render
@@ -46,17 +46,17 @@ describe "products/show.html.erb" do
 
   it "管理者ユーザーの場合、「編集」「削除」リンクが表示される。" do
     render
-    rendered.should have_content("編 集")
-    rendered.should have_content("削 除")
+    rendered.should have_content("編　集")
+    rendered.should have_content("削　除")
   end
 
-  it "管理者ユーザーの場合、「編集」「削除」リンクが表示されない。" do
+  it "管理者ユーザーの場合、「編 集」「削 除」リンクが表示されない。" do
     user = double('user')
     controller.stub(:current_user) { user }
     user.stub(:admin?) { false }
     render
-    rendered.should_not have_content("編 集")
-    rendered.should_not have_content("削 除")
+    rendered.should_not have_content("編　集")
+    rendered.should_not have_content("削　除")
   end
 =begin
 =end

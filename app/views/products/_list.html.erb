@@ -1,5 +1,4 @@
 
-
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3">
@@ -73,7 +72,7 @@
                         </div>
                       </td> 
                       <td><%= product.name %></td> 
-                      <td><%= product.price %></td> 
+                      <td><%= number_to_currency(product.price, :precision=>0, :format=>"%n%u", :unit=>"円") %></td> 
                       <td><%= product.classify %></td> 
                     </tr>
                   <% end %>
@@ -123,7 +122,7 @@
                           </div>
                         </td> 
                         <td><%= product.name %></td> 
-                        <td><%= product.price %></td> 
+                        <td><%= number_to_currency(product.price, :precision=>0, :format=>"%n%u", :unit=>"円") %></td> 
                         <td><%= product.classify %></td> 
                       </tr>
                     <% end %>
@@ -138,17 +137,5 @@
       </div><!--/span-->
     </div><!--/row-->
 
-    <hr>
-
-    <footer>
-      <br/>
-      <p>&copy; <%= link_to 'SAN-EI MEDSYS.CO.,LTD 2012', users_path %></p>
-    </footer>
-
-
   </div><!--/.fluid-container-->
-
-  <br/>
-  <br/>
-
 

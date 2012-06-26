@@ -30,7 +30,7 @@ When /^管理ユーザーで商品詳細画面を表示した場合、$/ do
 end
 
 Then /^「編集」、「削除」リンクが表示される。$/ do
-  page.should have_content("編 集")
-  page.should have_content("削 除")
+  page.should have_content("編　集")
+  page.should have_content("削　除")
 end
 
