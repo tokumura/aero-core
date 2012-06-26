@@ -45,10 +45,11 @@ class DepartmentsController < ApplicationController
   def create
     @department = Department.new(params[:department])
 
+    save_success = @department.save
     respond_to do |format|
-      if @department.save
-        format.html { redirect_to(@department, :notice => 'Department was successfully created.') }
-        format.xml  { render :xml => @department, :status => :created, :location => @department }
+      if save_success
+        format.html { redirect_to(departments_url) }
+        format.xml  { head :ok }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @department.errors, :status => :unprocessable_entity }
@@ -61,9 +62,10 @@ class DepartmentsController < ApplicationController
   def update
     @department = Department.find(params[:id])
 
+    save_success = @department.update_attributes(params[:department])
     respond_to do |format|
-      if @department.update_attributes(params[:department])
-        format.html { redirect_to(@department, :notice => 'Department was successfully updated.') }
+      if save_success
+        format.html { redirect_to(departments_url) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

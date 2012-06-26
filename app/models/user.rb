@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :department
+  validates_presence_of :username
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

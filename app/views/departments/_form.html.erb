@@ -1,21 +1,23 @@
-<%= form_for(@department) do |f| %>
-  <% if @department.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@department.errors.count, "error") %> prohibited this department from being saved:</h2>
-
-      <ul>
-      <% @department.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= link_to(departments_path, :class=>"btn btn-primary btn-large") do %>
+  <i class="icon-circle-arrow-left icon-white"></i> 一覧に戻る
 <% end %>
+<br/>
+<br/>
+<div class="row">
+  <div class="span7">
+    <%= form_for(@department, :html => {:multipart => true, :class => 'form-horizontal well'}) do |f| %>
+      <fieldset>
+        <div class="control-group">
+          <legend>部署情報を入力してください。</legend>
+          <label class="control-label" for="input01">部署名</label>
+          <div class="controls">
+            <%= f.text_field :name, {:class=>"input-xlarge"} %>
+          </div>
+        </div>
+        <div class="form-actions">
+          <%= f.submit '　登　録　', {:class=>"btn btn-primary"} %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

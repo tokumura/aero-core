@@ -1,27 +1,46 @@
 <div class="container">
 
-  <h1>Listing departments</h1>
+  <div class="page-header">
+    <h1>部署一覧</h1>
+  </div>
+  <%= link_to(new_department_path, :class=>"btn btn-primary btn-large") do %>
+    <i class="icon-plus icon-white"></i> 部署登録
+  <% end %>　
 
-  <table>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <br/>
+  <br/>
 
-  <% @departments.each do |department| %>
-    <tr>
-      <td><%= department.name %></td>
-      <td><%= link_to 'Show', department %></td>
-      <td><%= link_to 'Edit', edit_department_path(department) %></td>
-      <td><%= link_to 'Destroy', department, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 60%">部署名</th> 
+        <th style="width: 15%"></th> 
+        <th style="width: 15%"></th> 
+      </tr>
+    </thead>
+    <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td style="font-size:18px;vertical-align:middle;padding-left:20px;"><%=department.name %></td> 
+        <td style="text-align:center;">
+          <%= link_to(edit_department_path(department), :class=>"btn btn-primary btn-large") do %>
+            <i class="icon-edit icon-white"></i> 編　集
+          <% end %>
+        </td>
+        <td style="text-align:center;">
+          <%= link_to(department_path(department), 
+                      { :method => :delete, :confirm => "削除してよろしいですか？",
+                       :class=>"btn btn-primary btn-large"
+                      }) do %>
+            <i class="icon-trash icon-white"></i> 削　除
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
   </table>
 
   <br />
 
-  <%= link_to 'New Department', new_department_path %>
 
 </div>

@@ -45,10 +45,11 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(params[:category])
 
+    save_success = @category.save
     respond_to do |format|
-      if @category.save
-        format.html { redirect_to(@category, :notice => 'Category was successfully created.') }
-        format.xml  { render :xml => @category, :status => :created, :location => @category }
+      if save_success
+        format.html { redirect_to(categories_url) }
+        format.xml  { head :ok }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
@@ -60,10 +61,11 @@ class CategoriesController < ApplicationController
   # PUT /categories/1.xml
   def update
     @category = Category.find(params[:id])
+    save_success = @category.update_attributes(params[:category])
 
     respond_to do |format|
-      if @category.update_attributes(params[:category])
-        format.html { redirect_to(@category, :notice => 'Category was successfully updated.') }
+      if save_success
+        format.html { redirect_to(categories_url) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
