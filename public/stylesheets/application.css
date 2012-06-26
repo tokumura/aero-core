@@ -15,18 +15,18 @@
   vertical-align: top;
 }
 .column {
-  height:  50px;
+  height:  40px;
   width:  150px;
   border: #A9A9A9 solid;
   border-width: 0 0 1px 0;
 }
 .data {
-  height:  50px;
+  height:  40px;
   width:  400px;
   border: #A9A9A9 solid;
   border-width: 0 0 1px 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .comment {
   vertical-align: top;
