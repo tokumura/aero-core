@@ -43,7 +43,13 @@
     </tr>
     <tr>
       <td class="column"><h3>部署</h3></td>
-      <td class="data"><%=@department_name %></td>
+      <td class="data">
+        <% @product.departments.each do |d| %>
+          <% department = Department.find(d.id) %>
+          <%=department.name %></br/>
+        <% end %>
+        <%#=@department_name %>
+      </td>
     </tr>
     <tr>
       <td class="column"><h3>カテゴリ</h3></td>
