@@ -8,7 +8,7 @@ xml.products(:type=>"array", :counts => @products.size.to_s) do
       xml.comment(product.comment)
       xml.photo(product.photo(:original), :size => "original")
       xml.photo(product.photo(:thumb), :size => "thumb")
-      xml.departments() do
+      xml.departments(:type=>"array") do
         product.departments.each do |pd|
           xml.department() do
             department = Department.find(pd.department_id)
@@ -17,7 +17,7 @@ xml.products(:type=>"array", :counts => @products.size.to_s) do
           end
         end
       end
-      xml.categories() do
+      xml.categories(:type=>"array") do
         product.categories.each do |pc|
           xml.category() do
             category = Category.find(pc.category_id)
