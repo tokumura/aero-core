@@ -35,6 +35,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def index_for_client
+    @products = Product.all
+    respond_to do |format|
+      format.xml 
+    end
+  end
+
   # GET /products/1
   # GET /products/1.xml
   def show

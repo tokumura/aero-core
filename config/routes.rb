@@ -33,6 +33,9 @@ AeroCore::Application.routes.draw do
     member do
       post :relations_update
     end
+    collection do
+      get :index_for_client
+    end
   end
 
   resources :users do
