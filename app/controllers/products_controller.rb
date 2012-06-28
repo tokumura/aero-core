@@ -241,7 +241,6 @@ class ProductsController < ApplicationController
     end
   end
 
-=begin
   def belong
     @departments_products = DepartmentsProducts.find_all_by_department_id(params[:id])
     @products = Array.new(0)
@@ -260,6 +259,8 @@ class ProductsController < ApplicationController
       format.xml  { render :xml => @products }
     end
   end
+
+=begin
 
   def findall
     @products = Product.order('name')
@@ -405,7 +406,6 @@ class ProductsController < ApplicationController
 
     @departments = Department.all
     @categories = Category.all
-    
     @selected_department_id = params[:id]
     @sort = params[:sort]
 

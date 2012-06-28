@@ -14,6 +14,7 @@ AeroCore::Application.routes.draw do
       get :findall
       get :findall_desc_name
       get :download
+      get :index_for_client
     end
     member do
       get :belong
@@ -21,7 +22,6 @@ AeroCore::Application.routes.draw do
       get :download_detail
       get :relations
       post :relations_update
-      get :index_for_client
     end
   end
 
