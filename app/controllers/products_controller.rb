@@ -323,8 +323,10 @@ class ProductsController < ApplicationController
       end
 
       url = p.photo(:thumb)
+      ext = p.photo_content_type.to_s.split("/")
+      
       response = Net::HTTP.get_response(URI.parse(url)).body
-      filepath = "tmp/" + p.id.to_s + ".jpeg"
+      filepath = "tmp/" + p.id.to_s + "." + ext[1]
       open(filepath, "wb") do |file|
         file.puts response
       end
@@ -340,6 +342,8 @@ class ProductsController < ApplicationController
     end
     send_data report.generate, :filename => "products.pdf", :type => 'application/pdf'
     FileUtils.rm(Dir.glob(Rails.root.to_s + "/tmp/*.jpeg"))
+    FileUtils.rm(Dir.glob(Rails.root.to_s + "/tmp/*.jpg"))
+    FileUtils.rm(Dir.glob(Rails.root.to_s + "/tmp/*.png"))
   end
 
   def download_detail
