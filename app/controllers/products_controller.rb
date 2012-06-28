@@ -28,6 +28,8 @@ class ProductsController < ApplicationController
     end
     @departments = Department.all
     @categories = Category.all
+    @order_name = "商品名 (昇順)"
+    @sort = "name_asc"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -219,11 +221,19 @@ class ProductsController < ApplicationController
   end
 
   def find
+    sort = params[:sort].to_s.split("_")
+    @order_name = get_sort_name(sort[0].to_s, sort[1].to_s)
+    @sort = params[:sort]
+
     keyword = params[:search_string]
-    @products = Product.find(:all, :conditions => ["name LIKE ?", "%" + params[:search_string] + "%"])
+    @products = Product.find(:all, 
+                             :conditions => ["name LIKE ?", "%" + params[:search_string] + "%"], 
+                             :order => sort[0] + ' ' + sort[1])
+
     @departments = Department.all
     @categories = Category.all
     @search_string = params[:search_string]
+    @selected_department_id = "0"
 
     respond_to do |format|
       format.html # search.html.erb
@@ -231,6 +241,7 @@ class ProductsController < ApplicationController
     end
   end
 
+=begin
   def belong
     @departments_products = DepartmentsProducts.find_all_by_department_id(params[:id])
     @products = Array.new(0)
@@ -242,6 +253,7 @@ class ProductsController < ApplicationController
     @categories = Category.all
     
     @selected_department_id = params[:id]
+    @order_name = "商品名 (昇順)"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -255,6 +267,10 @@ class ProductsController < ApplicationController
     @departments = Department.all
     @selected_department_id = "0"
     @categories = Category.all
+    @order_name = "商品名 (昇順)"
+    sort = params[:sort].to_s.split("_")
+    @order_name = get_sort_name(sort[0].to_s, sort[1].to_s)
+    @sort = params[:sort]
 
     respond_to do |format|
       format.html # findall.html.erb
@@ -268,12 +284,15 @@ class ProductsController < ApplicationController
     @departments = Department.all
     @selected_department_id = "0"
     @categories = Category.all
+    @order_name = "商品名 (昇順)"
+    @sort = params[:sort]
 
     respond_to do |format|
       format.html # findall.html.erb
       format.xml  { render :xml => @products }
     end
   end
+=end
 
   def download
 
@@ -290,7 +309,6 @@ class ProductsController < ApplicationController
         @products << product
       end
     end
-
 
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'products_list.tlf')
     report.start_new_page
@@ -368,6 +386,49 @@ class ProductsController < ApplicationController
         format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def belong_order
+    sort = params[:sort].to_s.split("_")
+    @order_name = get_sort_name(sort[0].to_s, sort[1].to_s)
+
+    if params[:id].to_s == "0"
+      @products = Product.order(sort[0] + ' ' + sort[1])
+    elsif
+      @products = Product.find_by_sql(['
+        SELECT * FROM departments_products as dp
+        LEFT OUTER JOIN products as p ON dp.product_id = p.id 
+        WHERE dp.department_id = ' + params[:id].to_s + ' 
+        ORDER BY p.' + sort[0] + ' ' + sort[1]
+      ])
+    end
+
+    @departments = Department.all
+    @categories = Category.all
+    
+    @selected_department_id = params[:id]
+    @sort = params[:sort]
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @products }
+    end
+  end
+
+  def get_sort_name(sort_name, sort_order)
+    order_name = ""
+    if sort_name == "name"
+      order_name = "商品名"
+    elsif sort_name == "classify"
+      order_name = "分類"
+    end
+
+    if sort_order == "asc"
+      order_name = order_name + " (昇順)"
+    elsif sort_order == "desc"
+      order_name = order_name + " (降順)"
+    end
+    order_name
   end
 
 end

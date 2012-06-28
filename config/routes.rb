@@ -11,29 +11,16 @@ AeroCore::Application.routes.draw do
   resources :products do
     collection do
       post :find
-    end
-    member do
-      get :belong
-    end
-    collection do
       get :findall
-    end
-    collection do
       get :findall_desc_name
-    end
-    collection do
       get :download
     end
     member do
+      get :belong
+      get :belong_order
       get :download_detail
-    end
-    member do
       get :relations
-    end
-    member do
       post :relations_update
-    end
-    collection do
       get :index_for_client
     end
   end

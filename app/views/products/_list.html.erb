@@ -6,17 +6,19 @@
           <ul class="nav nav-list">
             <li class="nav-header">部署</li>
               <% if @selected_department_id.to_s == "0" %>
-                <li class="active"><%=link_to 'すべて', findall_products_path %></li>
+                <li class="active"><%=link_to 'すべて', belong_order_product_path(0) + "?sort=" + @sort %></li>
               <% else %>
-                <li><%=link_to 'すべて', findall_products_path %></li>
+                <li><%=link_to 'すべて', belong_order_product_path(0) + "?sort=" + @sort %></li>
               <% end %>
             <% @departments.each do |dep| %>
               <% if @selected_department_id.to_s == dep.id.to_s %>
-                <li class="active"><%=link_to dep.name, belong_product_path(dep.id)%></li>
+                <li class="active"><%=link_to dep.name, belong_order_product_path(dep.id) + "?sort=" + @sort %></li>
               <% else %>
-                <li class=""><%=link_to dep.name, belong_product_path(dep.id)%></li>
+                <li><%=link_to dep.name, belong_order_product_path(dep.id) + "?sort=" + @sort %>
+                </li>
               <% end %>
             <% end %>
+
           </ul>
         </div><!--/.well -->
       </div><!--/span-->
@@ -33,7 +35,7 @@
                 <i class="icon-print icon-white"></i>&nbsp;&nbsp;商品登録
               </a>
             <% end %>　
-            <%= link_to( {:contoroller=>"product", :action=>"download", 
+            <%= link_to( {:controller=>"products", :action=>"download", 
                                       :selected_department_id=>@selected_department_id,
                                       :search_string=>@search_string}, :class=>"btn btn-primary btn-large") do %>
               <i class="icon-print icon-white"></i>&nbsp;&nbsp;一覧印刷
@@ -54,30 +56,58 @@
               <div class="tab-pane active" id="tab1">
                 <% if @products.size > 0 %>
                 <div class="span12">
-                <table class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th style="width: 15%"></th> 
-                      <th style="width: 50%">商品名</th> 
-                      <th style="width: 15%">価格</th> 
-                      <th style="width: 20%">分類</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <% @products.each do |product| %>
-                    <tr onclick="location.href='<%=product_path(product)%>'">
-                      <td>
-                        <div align="center">
-                          <%= image_tag product.photo(:thumb) %>
-                        </div>
-                      </td> 
-                      <td><%= product.name %></td> 
-                      <td><%= number_to_currency(product.price, :precision=>0, :format=>"%n%u", :unit=>"円") %></td> 
-                      <td><%= product.classify %></td> 
-                    </tr>
-                  <% end %>
-                  </tbody>
-                </table>
+                  <div align="right">
+                    <table border="0">
+                      <tr>
+                        <td width="130px">
+                          <div class="btn-group">
+                            <a class="btn btn-info" href="#"><%=@order_name %></a>
+                            <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                            <ul class="dropdown-menu pull-right">
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_asc">商品名 (昇順)</a>
+                              </li>
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_desc">商品名 (降順)</a>
+                              </li>
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_asc">分類 (昇順)</a>
+                              </li>
+                              <li>
+
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_desc">分類 (降順)</a>
+                              </li>
+                            </ul>&nbsp;
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <br/>
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th style="width: 15%"></th> 
+                        <th style="width: 50%">商品名</th>
+                        <th style="width: 15%">価格</th> 
+                        <th style="width: 20%">分類</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% @products.each do |product| %>
+                      <tr onclick="location.href='<%=product_path(product)%>'">
+                        <td>
+                          <div align="center">
+                            <%= image_tag product.photo(:thumb) %>
+                          </div>
+                        </td> 
+                        <td><%= product.name %></td> 
+                        <td><%= number_to_currency(product.price, :precision=>0, :format=>"%n%u", :unit=>"円") %></td> 
+                        <td><%= product.classify %></td> 
+                      </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
                 </div>
                 <% end %>
               </div><!--/tab-pane-->
@@ -100,6 +130,34 @@
 
                 <div class="tab-pane" id="tab<%=i%>">
                   <% if @products_by_category.size > 0 %>
+                  <div align="right">
+                    <table border="0">
+                      <tr>
+                        <td width="130px">
+                          <div class="btn-group">
+                            <a class="btn btn-info" href="#"><%=@order_name %></a>
+                            <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                            <ul class="dropdown-menu pull-right">
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_asc">商品名 (昇順)</a>
+                              </li>
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_desc">商品名 (降順)</a>
+                              </li>
+                              <li>
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_asc">分類 (昇順)</a>
+                              </li>
+                              <li>
+
+                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_desc">分類 (降順)</a>
+                              </li>
+                            </ul>&nbsp;
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <br/>
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
