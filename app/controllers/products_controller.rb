@@ -315,6 +315,8 @@ class ProductsController < ApplicationController
     report.start_new_page
 
     report.page.values :title => "商品一覧"
+    report.page.values :output_date => '2012/06/29 12:21'
+
     @products.each do |p|
       category_names = ""
       p.categories.each do |c|
@@ -322,7 +324,7 @@ class ProductsController < ApplicationController
         category_names = category_names + category.name + "　"
       end
 
-      url = p.photo(:thumb)
+      url = p.photo(:original)
       ext = p.photo_content_type.to_s.split("/")
       
       response = Net::HTTP.get_response(URI.parse(url)).body
@@ -348,14 +350,66 @@ class ProductsController < ApplicationController
 
   def download_detail
     @product = Product.find(params[:id])
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'product_detail.tlf')
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'reports', 'products_detail.tlf')
     report.start_new_page
 
+    category_names = ""
+    @product.categories.each do |c|
+      category = Category.find(c.id)
+      category_names = category_names + category.name + "　"
+    end
+
+    url = @product.photo(:original)
+    ext = @product.photo_content_type.to_s.split("/")
+    
+    response = Net::HTTP.get_response(URI.parse(url)).body
+    filepath = "tmp/" + @product.id.to_s + "." + ext[1]
+    open(filepath, "wb") do |file|
+      file.puts response
+    end
+
     report.page.values :product_name => @product.name,
+                       :product_image => filepath,
                        :product_price => @product.price.to_s + " 円",
                        :product_classify => @product.classify,
+                       :product_category => category_names,
                        :product_comment => @product.comment
  
+    if @product.relations.size > 0
+      report.page.values :relation_title_name => '商品名',
+                         :relation_title_category => 'カテゴリー'
+    end
+
+    @product.relations.each do |pr|
+      product = Product.find(pr.relation_id)
+
+      category_names = ""
+      product.categories.each do |c|
+        category = Category.find(c.id)
+        category_names = category_names + category.name + "　"
+      end
+
+      url = product.photo(:thumb)
+      ext = product.photo_content_type.to_s.split("/")
+      
+      response = Net::HTTP.get_response(URI.parse(url)).body
+      relation_filepath = "tmp/" + product.id.to_s + "." + ext[1]
+      open(relation_filepath, "wb") do |file|
+        file.puts response
+      end
+
+      report.page.list(:relation_list) do |list|
+        list.add_row :relation_name => product.name, 
+                     :relation_category => category_names,
+                     :relation_image => relation_filepath
+      end
+      
+    end
+
+=begin
+
+=end
+
     send_data report.generate, :filename => "products_detail.pdf", :type => 'application/pdf'
   end
 
