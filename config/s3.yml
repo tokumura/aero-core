@@ -1,15 +1,15 @@
 development:
   bucket: aero-smc-dev
-  access_key_id: AKIAIRK4NJE4U56RWOYA
-  secret_access_key: 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
+  access_key_id: AKIAIAZWBR2LVNFU7FVQ
+  secret_access_key: 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
   s3_host_name: s3-ap-northeast-1.amazonaws.com
 test:
   bucket: aero-smc-test
-  access_key_id: AKIAIRK4NJE4U56RWOYA
-  secret_access_key: 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
+  access_key_id: AKIAIAZWBR2LVNFU7FVQ
+  secret_access_key: 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
   s3_host_name: s3-ap-northeast-1.amazonaws.com
 production:
   bucket: aero-smc
-  access_key_id: AKIAIRK4NJE4U56RWOYA
-  secret_access_key: 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
+  access_key_id: AKIAIAZWBR2LVNFU7FVQ
+  secret_access_key: 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
   s3_host_name: s3-ap-northeast-1.amazonaws.com
