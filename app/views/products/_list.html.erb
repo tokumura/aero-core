@@ -25,23 +25,58 @@
 
       <div class="span9">
         <div class="row-fluid">
-          <p>
-            <% if current_user.try(:admin?) %>
-              <a class="btn btn-primary btn-large" href="<%=new_product_path %>">
-                <i class="icon-plus icon-white"></i>&nbsp;&nbsp;商品登録
-              </a>
-            <% else %>
-              <a class="btn btn-primary btn-large disabled" href="">
-                <i class="icon-print icon-white"></i>&nbsp;&nbsp;商品登録
-              </a>
-            <% end %>　
-            <%= link_to( {:controller=>"products", :action=>"download", 
-                                      :selected_department_id=>@selected_department_id,
-                                      :search_string=>@search_string}, :class=>"btn btn-primary btn-large") do %>
-              <i class="icon-print icon-white"></i>&nbsp;&nbsp;一覧印刷
-          <% end %>　
-          </p>
 
+
+          <div class="row-fluid">
+            <div class="span12">
+              <div class="row-fluid">
+                <div class="span6">
+                  <% if current_user.try(:admin?) %>
+                    <a class="btn btn-primary btn-large" href="<%=new_product_path %>">
+                      <i class="icon-plus icon-white"></i>&nbsp;&nbsp;商品登録
+                    </a>
+                  <% else %>
+                    <a class="btn btn-primary btn-large disabled" href="">
+                      <i class="icon-print icon-white"></i>&nbsp;&nbsp;商品登録
+                    </a>
+                  <% end %>　
+                  <%= link_to( {:controller=>"products", :action=>"download", 
+                                            :selected_department_id=>@selected_department_id,
+                                            :search_string=>@search_string}, :class=>"btn btn-primary btn-large") do %>
+                    <i class="icon-print icon-white"></i>&nbsp;&nbsp;一覧印刷
+                  <% end %>　
+                </div>
+                <div class="span6" align="right">
+                  <table border="0">
+                    <tr>
+                      <td width="130px">
+                        <div class="btn-group">
+                          <a class="btn btn-info" href="#"><%=@order_name %></a>
+                          <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                          <ul class="dropdown-menu pull-right">
+                            <li>
+                              <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_asc">商品名 (昇順)</a>
+                            </li>
+                            <li>
+                              <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_desc">商品名 (降順)</a>
+                            </li>
+                            <li>
+                              <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_asc">分類 (昇順)</a>
+                            </li>
+                            <li>
+
+                              <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_desc">分類 (降順)</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+             </div>
+            </div>
+          </div>
+          <br/>
           <div class="tabbable">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#tab1" data-toggle="tab">全カテゴリ</a></li>
@@ -56,34 +91,6 @@
               <div class="tab-pane active" id="tab1">
                 <% if @products.size > 0 %>
                 <div class="span12">
-                  <div align="right">
-                    <table border="0">
-                      <tr>
-                        <td width="130px">
-                          <div class="btn-group">
-                            <a class="btn btn-info" href="#"><%=@order_name %></a>
-                            <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                            <ul class="dropdown-menu pull-right">
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_asc">商品名 (昇順)</a>
-                              </li>
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_desc">商品名 (降順)</a>
-                              </li>
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_asc">分類 (昇順)</a>
-                              </li>
-                              <li>
-
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_desc">分類 (降順)</a>
-                              </li>
-                            </ul>&nbsp;
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                  <br/>
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -130,34 +137,6 @@
 
                 <div class="tab-pane" id="tab<%=i%>">
                   <% if @products_by_category.size > 0 %>
-                  <div align="right">
-                    <table border="0">
-                      <tr>
-                        <td width="130px">
-                          <div class="btn-group">
-                            <a class="btn btn-info" href="#"><%=@order_name %></a>
-                            <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                            <ul class="dropdown-menu pull-right">
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_asc">商品名 (昇順)</a>
-                              </li>
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=name_desc">商品名 (降順)</a>
-                              </li>
-                              <li>
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_asc">分類 (昇順)</a>
-                              </li>
-                              <li>
-
-                                <a href="<%=belong_order_product_path(@selected_department_id)%>?sort=classify_desc">分類 (降順)</a>
-                              </li>
-                            </ul>&nbsp;
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                  <br/>
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
