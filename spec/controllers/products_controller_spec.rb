@@ -34,7 +34,7 @@ describe ProductsController do
 
   describe "DELETE /products" do
     it "should be successfull" do
-      delete 'destroy', {:id => 1}
+      delete 'destroy', {:id => 2}
       response.should redirect_to(products_path)
     end
   end
@@ -81,9 +81,9 @@ describe ProductsController do
     end
   end
 
-  describe "GET /find" do
+  describe "POST /find" do
     it "should be successfull" do
-      post 'find', :search_string => "LBP"
+      post 'find', :search_string => "LBP", :sort => "name_asc"
       response.should be_success
       #response.should redirect_to(product_path(1))
     end

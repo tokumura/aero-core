@@ -14,5 +14,16 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :name, :price
 
+  def product_all(department_id)
+    departments_products = DepartmentsProducts.find_all_by_department_id(department_id)
+    products = Array.new(0)
+    sql = ""
+    departments_products.each do |dp|
+      sql = sql + "id = " + dp.product_id.to_s + " OR "
+    end
+    sql = sql + "id = 0 order by name asc"
+    products = Product.find_by_sql(['SELECT * FROM products where ' + sql])
+    products
+  end
 
 end

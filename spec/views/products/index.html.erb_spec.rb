@@ -17,6 +17,8 @@ describe "products/index.html.erb" do
     end
     @departments = Department.all
     @categories = Category.all
+    @sort = "name_asc"
+    @selected_department_id = 1
   end
 
   it "初期表示時、自部署で絞り込みされている。(F/Sの場合、500Aは表示されない）" do

@@ -11,19 +11,12 @@ class ProductsController < ApplicationController
   # GET /products.xml
   def index
     @user = User.find(current_user.id)
+    product = Product.new
     if @user.department_id && @user.department_id.to_s != "0"
-      @products_temp = Product.all
-      @departments_products = DepartmentsProducts.find_all_by_department_id(@user.department.id)
-      @products = Array.new(0)
-      @sql = ""
-      @departments_products.each do |dp|
-        @sql = @sql + "id = " + dp.product_id.to_s + " OR "
-      end
-      @sql = @sql + "id = 0 order by name asc"
-      @products = Product.find_by_sql(['SELECT * FROM products where ' + @sql])
+      @products = product.product_all(@user.department.id)
       @selected_department_id = @user.department.id
     else
-      @products = Product.order('name')
+      @products = product.order('name')
       @selected_department_id = "0"
     end
     @departments = Department.all
@@ -48,21 +41,12 @@ class ProductsController < ApplicationController
   # GET /products/1.xml
   def show
     @product = Product.find(params[:id])
-    @product.relations.each do |r|
-      relation_product = Product.find(r.relation_id)
-    end
 
-    @department_name = ""
-    @product.departments.each do |d|
-      department = Department.find(d.id)
-      @department_name = @department_name + department.name + "　"
-    end
+    department = Department.new
+    @department_name = department.get_name_for_show(@product.departments)
 
-    @category_name = ""
-    @product.categories.each do |c|
-      category = Category.find(c.id)
-      @category_name = @category_name + category.name + "　"
-    end
+    category = Category.new
+    @category_name = category.get_name_for_show(@product.categories)
     
     respond_to do |format|
       format.html # show.html.erb

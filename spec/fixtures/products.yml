@@ -5,7 +5,7 @@ printer1:
   comment: コメント１
   classify: プリンター
   photo_file_name: photo1.jpg
-  photo_content_type: 
+  photo_content_type: image/jpg
   photo_file_size:
   photo_updated_at:
 printer2:
@@ -15,7 +15,7 @@ printer2:
   comment: コメント２
   classify: プリンター
   photo_file_name: photo2.jpg
-  photo_content_type: 
+  photo_content_type: image/jpg
   photo_file_size:
   photo_updated_at:
 soft1:
@@ -25,7 +25,7 @@ soft1:
   comment: コメント３
   classify: 心電計
   photo_file_name: photo3.jpg
-  photo_content_type: 
+  photo_content_type: image/jpg
   photo_file_size:
   photo_updated_at:
 toner1:
@@ -34,6 +34,6 @@ toner1:
   price: 9000
   comment: コメント４
   photo_file_name: photo4.jpg
-  photo_content_type: 
+  photo_content_type: image/jpg
   photo_file_size:
   photo_updated_at:
