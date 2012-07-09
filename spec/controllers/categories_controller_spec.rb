@@ -39,7 +39,7 @@ describe CategoriesController do
 
   describe "DELETE /categories" do
     it "should be successfull" do
-      delete 'destroy', {:id => 1}
+      delete 'destroy', {:id => 3}
       response.should redirect_to(categories_path)
     end
   end
