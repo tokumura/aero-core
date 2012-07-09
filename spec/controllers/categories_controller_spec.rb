@@ -18,7 +18,7 @@ describe CategoriesController do
 
   describe "GET /categories/:id/products.xml" do
     it "should be successfull" do
-      get 'products', {:id => 1, :format => 'xml'}
+      get 'products', {:id => 3, :format => 'xml'}
       response.should be_success
     end
   end
