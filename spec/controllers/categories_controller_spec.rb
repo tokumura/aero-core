@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe CategoriesController do
 
-  fixtures :categories, :categories_products
+  fixtures :categories, :categories_products, :products
 
   before do
     controller.class.skip_before_filter :authenticate_user!
