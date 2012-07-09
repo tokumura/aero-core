@@ -11,12 +11,12 @@ class ProductsController < ApplicationController
   # GET /products.xml
   def index
     @user = User.find(current_user.id)
-    product = Product.new
     if @user.department_id && @user.department_id.to_s != "0"
+      product = Product.new
       @products = product.product_all(@user.department.id)
       @selected_department_id = @user.department.id
     else
-      @products = product.order('name')
+      @products = Product.order('name')
       @selected_department_id = "0"
     end
     @departments = Department.all
@@ -61,17 +61,6 @@ class ProductsController < ApplicationController
     @departments = Department.all
     @categories = Category.all
 
-    @category_names = Hash::new
-    @categories.each do |c|
-      @category_names[c.name] = c.id
-    end
-
-    @products = Product.all
-    @product_names = Hash::new
-    @products.each do |p|
-      @product_names[p.name] = p.id
-    end
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @product }
@@ -83,17 +72,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @departments = Department.all
     @categories = Category.all
-
-    @category_names = Hash::new
-    @categories.each do |c|
-      @category_names[c.name] = c.id
-    end
-
-    @products = Product.all
-    @product_names = Hash::new
-    @products.each do |p|
-      @product_names[p.name] = p.id
-    end
   end
 
   # POST /products
