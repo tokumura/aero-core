@@ -6,21 +6,9 @@ class CategoriesController < ApplicationController
   # GET /categories.xml
   def index
     @categories = Category.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @categories }
-    end
-  end
-
-  # GET /categories/1
-  # GET /categories/1.xml
-  def show
-    @category = Category.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @category }
     end
   end
 
@@ -28,7 +16,6 @@ class CategoriesController < ApplicationController
   # GET /categories/new.xml
   def new
     @category = Category.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @category }
@@ -41,17 +28,14 @@ class CategoriesController < ApplicationController
   end
 
   # POST /categories
-  # POST /categories.xml
+  # POST categories.xml
   def create
     @category = Category.new(params[:category])
-
-    save_success = @category.save
     respond_to do |format|
-      if save_success
+      if @category.save
         format.html { redirect_to(categories_url) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "new" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
     end
@@ -61,10 +45,8 @@ class CategoriesController < ApplicationController
   # PUT /categories/1.xml
   def update
     @category = Category.find(params[:id])
-    save_success = @category.update_attributes(params[:category])
-
     respond_to do |format|
-      if save_success
+      if @category.update_attributes(params[:category])
         format.html { redirect_to(categories_url) }
         format.xml  { head :ok }
       else
@@ -79,21 +61,16 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find(params[:id])
     @category.destroy
-
     respond_to do |format|
       format.html { redirect_to(categories_url) }
       format.xml  { head :ok }
     end
   end
 
+  # GET /categories/1/products.xml
   def products
-    @categories_products = CategoriesProducts.find_all_by_category_id(params[:id])
-    @products = Array.new(0)
-    @categories_products.each do |cp|
-      product = Product.find(cp.product_id)
-      @products << product
-    end
-
+    category = Category.new
+    @products = category.get_belong_products(params[:id])
     respond_to do |format|
       format.xml  { render :xml => @products }
     end

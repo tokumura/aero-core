@@ -39,20 +39,15 @@ describe DepartmentsController do
 
   describe "POST /departments" do
     it "should be successfull" do
-      pending("department create")
-      post 'create', {:id => 4, :name => "顧客管理部"}
-      response.should redirect_to(department_path(4))
+      post 'create', :department => {:name => "顧客管理部"}
+      response.should redirect_to(departments_path)
     end
   end
 
   describe "PUT /departments" do
     it "should be successfull" do
-      pending("department update")
-      put 'update', {:id => 2, :name => "医機部"}
-      response.should redirect_to(department_path(2))
+      put 'update', :id => 2, :department => {:name => "医機部"}
+      response.should redirect_to(departments_path)
     end
   end
-
-=begin
-=end
 end

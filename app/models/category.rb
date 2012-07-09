@@ -10,4 +10,14 @@ class Category < ActiveRecord::Base
     end
     category_name
   end
+
+  def get_belong_products(category_id)
+    categories_products = CategoriesProducts.find_all_by_category_id(category_id)
+    products = Array.new(0)
+    categories_products.each do |cp|
+      product = Product.find(cp.product_id)
+      products << product
+    end
+    products
+  end
 end

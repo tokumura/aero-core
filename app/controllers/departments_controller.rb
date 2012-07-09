@@ -13,17 +13,6 @@ class DepartmentsController < ApplicationController
     end
   end
 
-  # GET /departments/1
-  # GET /departments/1.xml
-  def show
-    @department = Department.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @department }
-    end
-  end
-
   # GET /departments/new
   # GET /departments/new.xml
   def new

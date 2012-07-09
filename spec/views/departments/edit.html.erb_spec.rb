@@ -1,16 +1,16 @@
 # coding: utf-8
 require 'spec_helper'
 
-describe "categories/new" do
-  fixtures :categories
+describe "departments/new" do
+  fixtures :departments
   before do
-    @category = Category.new
+    @department = Department.find(departments(:orca).id)
   end
 
-  it "カテゴリー名のテキストボックス(空)が表示される。" do
+  it "部署名のテキストボックスが表示される。" do
     render
     rendered.should have_selector("form") do |form|
-      form.should have_selector("input", :type => "text", :name => "category[name]")
+      form.should have_selector("input", :type => "text", :name => "department[name]", :value => @department.name)
     end
   end
 

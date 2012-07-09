@@ -1,18 +1,23 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe "categories/edit" do
-  before(:each) do
-    @category = assign(:category, stub_model(Category,
-      :name => "MyString"
-    ))
+  fixtures :categories
+  before do
+    @category = categories(:software)
   end
 
-  it "renders the edit category form" do
+  it "カテゴリー名のテキストボックスが表示される。" do
     render
+    rendered.should have_selector("form") do |form|
+      form.should have_selector("input", :type => "text", :name => "category[name]", :value => @category.name)
+    end
+  end
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => categories_path(@category), :method => "post" do
-      assert_select "input#category_name", :name => "category[name]"
+  it "登録ボタンが表示される。" do
+    render
+    rendered.should have_selector("form") do |form|
+      form.should have_selector("input", :type => "submit", :value => "　登　録　")
     end
   end
 end

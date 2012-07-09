@@ -63,13 +63,11 @@ describe ProductsController do
 
   describe "PUT /products" do
     it "should be successfull" do
-      pending("product update")
-      #post 'update', {:id => 1, :name => "Canon LBP9020", :price => "40000"}
-      post 'update', :product => {:id => 1, :name => "Canon LBP9020", :price => 40000, 
+      put 'update', :id => 1, :product => {:name => "Canon LBP9020", :price => 40000, 
                                   :classify => "Printer", :comment => "Add Comment",
-                                  :pict => "", :pictcode => ""},
-                      #:department_param => nil
-                      :department_param => ["1", "2", "3"]
+                                  },
+                                  :department_param => ["1", "2"],
+                                  :category_param => 2
       response.should redirect_to(product_path(1))
     end
   end

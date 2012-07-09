@@ -1,20 +1,25 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe "categories/index" do
-  before(:each) do
-    assign(:categories, [
-      stub_model(Category,
-        :name => "Name"
-      ),
-      stub_model(Category,
-        :name => "Name"
-      )
-    ])
+  fixtures :categories
+  before do
+    @categories = Category.all
+  end
+  it "初期表示時、全カテゴリが表示されている" do
+    render
+    rendered.should have_content(categories(:software).name)
+    rendered.should have_content(categories(:pc).name)
+    rendered.should have_content(categories(:printer).name)
   end
 
-  it "renders a list of categories" do
+  it "編集ボタンが表示されている" do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
+    rendered.should have_content(" 編　集 ")
+  end
+
+  it "削除ボタンが表示されている" do
+    render
+    rendered.should have_content(" 削　除 ")
   end
 end

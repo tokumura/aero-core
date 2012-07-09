@@ -16,6 +16,13 @@ describe CategoriesController do
     end
   end
 
+  describe "GET /categories/:id/products.xml" do
+    it "should be successfull" do
+      get 'products', {:id => 1, :format => 'xml'}
+      response.should be_success
+    end
+  end
+
   describe "GET /categories/new" do
     it "should be successfull" do
       get 'new'
@@ -39,17 +46,15 @@ describe CategoriesController do
 
   describe "POST /categories" do
     it "should be successfull" do
-      pending("category create")
-      post 'create', {:id => 4, :name => "オプションソフト"}
-      response.should redirect_to(category_path(4))
+      post 'create', :category => {:id => 4, :name => "オプションソフト"}
+      response.should redirect_to(categories_path)
     end
   end
 
   describe "PUT /categories" do
     it "should be successfull" do
-      pending("category update")
       post 'update', {:id => 1, :name => "メインソフト"}
-      response.should redirect_to(category_path(1))
+      response.should redirect_to(categories_path)
     end
   end
 
