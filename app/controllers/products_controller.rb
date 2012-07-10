@@ -79,33 +79,18 @@ class ProductsController < ApplicationController
   def create
     Product.transaction do
       @product = Product.new(params[:product])
-      save_success = @product.save
+      save_success = @product.save_with_relations(params[:department_param], params[:category_param])
 
-      if save_success
-        params[:department_param] && params[:department_param].each do |department_id|
-          @departments_products = DepartmentsProducts.new(:product_id => @product.id, :department_id => department_id)
-          save_success = @departments_products.save
-        end
-
-        if params[:category_param] 
-          @categories_products = CategoriesProducts.new(:product_id => @product.id, :category_id => params[:category_param])
-          save_success = @categories_products.save
-        end
-      else
-        # Not DRY! Do refactoring!
+      if !save_success
         @departments = Department.all
-        @categories = Category.all
 
-        @category_names = Hash::new
-        @categories.each do |c|
-          @category_names[c.name] = c.id
-        end
+        @categories = Category.all
+        category = Category.new
+        @category_names = category.get_category_hash(@categories)
 
         @products = Product.all
-        @product_names = Hash::new
-        @products.each do |p|
-          @product_names[p.name] = p.id
-        end
+        product = Product.new
+        @product_names = product.get_product_hash(@products)
       end
 
       respond_to do |format|
@@ -150,18 +135,14 @@ class ProductsController < ApplicationController
         else
           # Not DRY! Do refactoring!
           @departments = Department.all
-          @categories = Category.all
 
-          @category_names = Hash::new
-          @categories.each do |c|
-            @category_names[c.name] = c.id
-          end
+          @categories = Category.all
+          category = Category.new
+          @category_names = category.get_category_hash(@categories)
 
           @products = Product.all
-          @product_names = Hash::new
-          @products.each do |p|
-            @product_names[p.name] = p.id
-          end
+          product = Product.new
+          @product_names = product.get_product_hash(@products)
 
           format.html { render :action => "edit" }
           format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }

@@ -26,4 +26,29 @@ class Product < ActiveRecord::Base
     products
   end
 
+  def save_with_relations(departments, categories)
+    save_success = save
+    if save_success
+      departments && departments.each do |department_id|
+        departments_products = DepartmentsProducts.new(:product_id => id, :department_id => department_id)
+        save_success = departments_products.save
+      end
+
+      if categories 
+        categories_products = CategoriesProducts.new(:product_id => id, :category_id => categories)
+        save_success = categories_products.save
+      end
+    else
+    end
+    save_success
+  end
+
+  def get_product_hash(products)
+    product_names = Hash::new
+    products.each do |p|
+      product_names[p.name] = p.id
+    end
+    product_names
+  end
+
 end

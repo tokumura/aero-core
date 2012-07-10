@@ -20,4 +20,12 @@ class Category < ActiveRecord::Base
     end
     products
   end
+
+  def get_category_hash(categories)
+    category_names = Hash::new
+    categories.each do |c|
+      category_names[c.name] = c.id
+    end
+    category_names
+  end
 end
